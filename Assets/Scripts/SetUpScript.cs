@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using ZCU.TechnologyLab.Common.Unity.AssetVariables;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 
 // TODO path to config file
 
@@ -23,10 +23,14 @@ public class SetUpScript : MonoBehaviour
     private StringVariable serverUrl;
     /// <summary> Server connection </summary>
     [SerializeField]
-    ServerConnection serverConnection;
+    ServerConectionController serverConnection;
     /// <summary> Manual connection reset action reference </summary>
     [SerializeField]
     InputActionReference resetAction = null;
+
+    [Header("Controllers")]
+    [SerializeField]
+    RoomController roomController;
 
     /// <summary>
     /// Set up configuration1before application starts
@@ -41,7 +45,9 @@ public class SetUpScript : MonoBehaviour
         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         ReadConfig();
 
-        resetAction.action.performed += ResetSetUp;
+        if (resetAction != null)
+            resetAction.action.performed += ResetSetUp;
+
     }
 
     private void Start()
@@ -55,9 +61,26 @@ public class SetUpScript : MonoBehaviour
         {
             Debug.Log("Loading config file...");
             string[] lines = File.ReadAllLines(pathToConfig);
-            if (lines.Length >= 1)
+            if (lines.Length >= 2)
             {
+                // process url
                 serverUrl.Value = lines[0].Trim();
+
+                // process room size: "wX, wZ"
+                string roomSize = lines[1].Trim();
+                var sizes = roomSize.Split(',');
+                float wX = 0;
+                float wZ = 0;
+                if (sizes.Length == 2)
+                {
+                    float.TryParse(sizes[0].Trim(), out wX);
+                    float.TryParse(sizes[1].Trim(), out wZ);
+                }
+                if (wX != 0 && wZ != 0)
+                {
+                    roomController.SetRoomSize(wX, wZ);
+                }
+
             }
         }
     }

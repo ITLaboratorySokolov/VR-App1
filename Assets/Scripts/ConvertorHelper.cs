@@ -7,6 +7,22 @@ using UnityEngine;
 public static class ConvertorHelper
 {
     /// <summary>
+    /// Elongate array by add number of members, does not initialize the new members
+    /// </summary>
+    /// <typeparam name="T"> Type </typeparam>
+    /// <param name="array"> Array </param>
+    /// <param name="add"> Number of members to add </param>
+    /// <returns> New, longer array </returns>
+    public static T[] ElongateArray<T>(T[] array, int add)
+    {
+        T[] newArr = new T[array.Length + add];
+        for (int i = 0; i < array.Length; i++)
+            newArr[i] = array[i];
+
+        return newArr;
+    }
+
+    /// <summary>
     /// Converts array of Color to array of floats
     /// - takes rgba components
     /// </summary>
@@ -28,6 +44,28 @@ public static class ConvertorHelper
         }
 
         return floats;
+    }
+
+    /// <summary>
+    /// Converts array of floats to array of Vector2
+    /// </summary>
+    /// <param name="vertices"> Array of floats </param>
+    /// <returns> Array of vectors2 </returns>
+    internal static Vector2[] FloatToVec2(float[] vals)
+    {
+        if (vals.Length % 2 != 0)
+            throw new InvalidOperationException();
+
+        Vector2[] res = new Vector2[vals.Length / 2];
+
+        int index = 0;
+        for (int i = 0; i < vals.Length; i += 2)
+        {
+            res[index] = new Vector2(vals[i], vals[i + 1]);
+            index++;
+        }
+
+        return res;
     }
 
 
@@ -93,6 +131,27 @@ public static class ConvertorHelper
             floats[index + 1] = vecs[i].y;
             floats[index + 2] = vecs[i].z;
             index += 3;
+        }
+
+        return floats;
+    }
+
+    /// <summary>
+    /// Converts array of Vector2 to array of floats
+    /// </summary>
+    /// <param name="vecs"> Array of Vector2 </param>
+    /// <returns> Float array with coordinates from vectors</returns>
+    public static float[] Vec2ToFloats(Vector2[] vecs)
+    {
+        float[] floats = new float[vecs.Length * 2];
+
+        //Convert each vector to floats
+        int index = 0;
+        for (int i = 0; i < vecs.Length; i++)
+        {
+            floats[index] = vecs[i].x;
+            floats[index + 1] = vecs[i].y;
+            index += 2;
         }
 
         return floats;

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class WallCollisionDetector : MonoBehaviour
 {
-    [SerializeField]
     WallCollisionProcessor wcp;
 
     [SerializeField]
-    Vector3 keepCoords;
+    public Vector3 keepCoords;
 
     GameObject reaction;
 
@@ -24,9 +23,14 @@ public class WallCollisionDetector : MonoBehaviour
         
     }
 
+    public void SetWCP(WallCollisionProcessor wcp)
+    {
+        this.wcp = wcp;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision enter");
+        //Debug.Log("Collision enter");
         GameObject r = wcp.HandleCollision(this.transform, other.transform, keepCoords);
         if (r != null)
             reaction = r;

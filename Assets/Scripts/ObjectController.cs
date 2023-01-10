@@ -1,26 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using ZCU.TechnologyLab.Common.Entities.DataTransferObjects;
-using ZCU.TechnologyLab.Common.Unity.WorldObjects;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Server;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects;
 
 public class ObjectController : MonoBehaviour
 {
     public WorldObjectManager wom;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ServerDataAdapterWrapper dataAdapter;
 
     public Task<IEnumerable<GameObject>> ObjectRecieve()
     {
@@ -28,33 +15,46 @@ public class ObjectController : MonoBehaviour
         return wom.LoadServerContentAsync();
     }
 
-    public void ObjectRemoved()
+    public async void ObjectRemoved(string name)
     {
         Debug.Log("Remove");
+        await wom.RemoveObjectAsync(name);
     }
 
     public void ObjectsClear()
     {
         Debug.Log("Clear");
+        wom.ClearLocalContent();
     }
 
-    public void ObjectsReplace()
-    {
-        Debug.Log("Replace");
-    }
-
-    internal async void DestroyObject(string name)
+    internal async void DestroyObject(string name, GameObject obj)
     {
         Debug.Log("Destroy " + name);
         await wom.RemoveObjectAsync(name);
+        Destroy(obj);
+        Debug.Log("Destroyed " + name);
+    }
 
+    internal async Task<bool> ContainsObject(string name)
+    {
+        bool ret = false;
+        try
+        {
+            var d = await dataAdapter.GetWorldObjectAsync(name);
+            ret = true;
+        }
+        catch
+        {
+            ret = false;
+        }
+
+        return ret;
     }
 
     internal async void AddObjectAsync(GameObject obj)
     {
         Debug.Log("Add " + obj.name);
         await wom.AddObjectAsync(obj);
-
     }
 
     internal async void UpdateProperties(string name)

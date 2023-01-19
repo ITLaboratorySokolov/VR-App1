@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7695670928186095696}
+  - component: {fileID: 2654046750572283022}
   - component: {fileID: 7695670928186095699}
   - component: {fileID: 7695670928186095698}
   - component: {fileID: 7695670928186095697}
@@ -125,6 +126,22 @@ Transform:
   m_Father: {fileID: 7695670928496514462}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2654046750572283022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695670928186095711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eddf9d3c15cc4740a9cdf9eb3363f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverUrl: {fileID: 0}
+  serverConnection: {fileID: 7695670928496514463}
+  resetAction: {fileID: 0}
+  roomController: {fileID: 0}
 --- !u!114 &7695670928186095699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,8 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a6caa05a1794a40a95a118c14de500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintCont: {fileID: 0}
   objCont: {fileID: 0}
+  bxSpawner: {fileID: 0}
   session: {fileID: 7695670928186095697}
   actionStart:
     m_PersistentCalls:

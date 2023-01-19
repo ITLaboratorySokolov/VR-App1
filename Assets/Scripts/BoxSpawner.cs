@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class BoxSpawner : MonoBehaviour
 {
     [SerializeField]
     GameObject[] boxes;
+    [SerializeField]
+    GameObject[] boxPositions;
     [SerializeField]
     ObjectController objCont;
 
@@ -17,11 +20,15 @@ public class BoxSpawner : MonoBehaviour
 
     public async void SpawnInBoxes()
     {
-        for (int i = 0; i < boxes.Length; i++)
+        for (int i = 0; i < boxPositions.Length; i++)
         {
             // spawn to default position?
-            GameObject o = Instantiate(boxes[i], this.transform);
-            string name = o.name;
+            GameObject o = Instantiate(boxes[i % boxes.Length], boxPositions[i].transform.position, boxPositions[i].transform.rotation, this.transform);
+            var uph = o.GetComponent<UpdatePropertiesHandler>();
+            uph.objCont = objCont;
+            uph.StartPosition();
+            string name = "CardboardBox_" + i;
+            o.name = name;
 
             // send/update to server
 

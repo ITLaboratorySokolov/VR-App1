@@ -14,8 +14,11 @@ GameObject:
   - component: {fileID: 6075878915918271295}
   - component: {fileID: 6075878915918271288}
   - component: {fileID: 6075878915918271290}
-  - component: {fileID: -6572636569514983096}
   - component: {fileID: -4463643312211757279}
+  - component: {fileID: -6572636569514983096}
+  - component: {fileID: 6679547265465577399}
+  - component: {fileID: 642499464330089704}
+  - component: {fileID: 1503328421708524176}
   m_Layer: 0
   m_Name: CardboardBox_2
   m_TagString: Untagged
@@ -31,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6075878915918761749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14308186, z: 0.9735705}
+  m_LocalPosition: {x: 3, y: 0.0839, z: 0.9735705}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,9 +112,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6075878915918761749}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 50
+  m_Drag: 0.1
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -200,7 +203,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -243,6 +246,19 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!65 &-4463643312211757279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075878915918761749}
+  m_Material: {fileID: 13400000, guid: efd3a41d2a030c84c8e5d37cdcae5616, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.26, y: 0.28270826, z: 0.3400062}
+  m_Center: {x: 0, y: 0.001771152, z: -0.000000059604645}
 --- !u!114 &-6572636569514983096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,17 +271,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionalProperties: []
---- !u!65 &-4463643312211757279
-BoxCollider:
+  optionalProperties:
+  - {fileID: 642499464330089704}
+  - {fileID: 6679547265465577399}
+--- !u!114 &6679547265465577399
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6075878915918761749}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.26, y: 0.28270826, z: 0.3400062}
-  m_Center: {x: 0, y: 0.001771152, z: -0.000000059604645}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b19dabbefb6f4d49b73613314aef075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &642499464330089704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075878915918761749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7095a19c72be19d4d90c8e34b68c66ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1503328421708524176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6075878915918761749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662512661c28a5e4a9cf99a06b7d33a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objCont: {fileID: 0}
+  serverConnection: {fileID: 0}

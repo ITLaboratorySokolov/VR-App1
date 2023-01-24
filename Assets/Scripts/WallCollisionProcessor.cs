@@ -28,7 +28,6 @@ public class WallCollisionProcessor : MonoBehaviour
             wcd.SetWCP(this);
         }
 
-
     }
 
     public void SetBorderWall(float wX, float wZ)

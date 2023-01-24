@@ -41,7 +41,6 @@ public class ObjectController : MonoBehaviour
 
     internal async void DestroyObject(string name, GameObject obj)
     {
-        Debug.Log("Destroy " + name);
         await woManager.RemoveObjectAsync(name);
         Destroy(obj);
         Debug.Log("Destroyed " + name);
@@ -65,13 +64,13 @@ public class ObjectController : MonoBehaviour
 
     internal async void AddObjectAsync(GameObject obj)
     {
-        Debug.Log("Add " + obj.name);
+        // Debug.Log("Add " + obj.name);
         await woManager.AddObjectAsync(obj);
     }
 
     internal async void UpdateProperties(string name)
     {
-        Debug.Log("Update " + name);
+        // Debug.Log("Update " + name);
         await woManager.UpdateObjectAsync(name);
     }
 }

@@ -116,7 +116,7 @@ public class ServerConectionController : MonoBehaviour
                 string n = obj.name;
 
                 // Filter out lines
-                if (n.StartsWith("CardboardBox"))
+                // if (n.StartsWith("CardboardBox"))
                 {
                     var uph = obj.GetComponent<UpdatePropertiesHandler>();
                     uph.objCont = objCont;
@@ -124,10 +124,10 @@ public class ServerConectionController : MonoBehaviour
                     uph.StartPosition();
                     Debug.Log("Recieved " + n);
                 }
-                else
+                // else
                 {
-                    objCont.RemoveObjectFromLocal(n);
-                    Debug.Log("Removing " + n);
+                    // objCont.RemoveObjectFromLocal(n);
+                    // Debug.Log("Removing " + n);
                 }
 
             }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ServerInventory
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 4381866689056338526, guid: 64e177e2b91e3d048aeec632c6517f6e, type: 3}
+  - {fileID: 4381866689056338526, guid: 714c04e917aa12440b69baf671459851, type: 3}

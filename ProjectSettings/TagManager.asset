@@ -8,6 +8,7 @@ TagManager:
   - wall
   - controller
   - grabbable
+  - worldObject
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Controller
   - Player
   - Borders
-  - 
+  - DrawnLine
   - 
   - 
   - 

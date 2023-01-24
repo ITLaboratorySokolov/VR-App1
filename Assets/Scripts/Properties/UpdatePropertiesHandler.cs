@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
 public class UpdatePropertiesHandler : MonoBehaviour
 {
@@ -19,10 +20,69 @@ public class UpdatePropertiesHandler : MonoBehaviour
     Quaternion newRot;
     Quaternion lastRot;
 
+    [SerializeField]
+    TextureProperty texProp;
+
+    [SerializeField]
+    Material lineMaterial;
+    [SerializeField]
+    Material boxMaterial;
+    [SerializeField]
+    Material generalMaterial;
+
     // Start is called before the first frame update
     void Start()
     {
         timeUntilUpdate = 0;
+
+        MeshRenderer mr = GetComponent<MeshRenderer>();
+        Color c = mr.material.GetColor("_Color"); ;
+        Texture t = mr.material.GetTexture("_MainTex");
+
+        tag = "worldObject";
+
+        //texProp.textureName = "_MainTex";
+
+        if (name.StartsWith("Line"))
+        {
+            mr.material = lineMaterial;
+            mr.material.SetColor("_Color", c);
+            if (t != null)
+                mr.material.SetTexture("_MainTex", t);
+
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            int layerNum = LayerMask.NameToLayer("DrawnLine");
+            gameObject.layer = layerNum;
+
+
+        }
+        else if (name.StartsWith("CardboardBox"))
+        {
+            mr.material = boxMaterial;
+            mr.material.SetColor("_Color", c);
+            if (t != null)
+                mr.material.SetTexture("_MainTex", t);
+
+            // no updating of texture properties!
+            MeshPropertiesManager mpm = GetComponent<MeshPropertiesManager>();
+            
+            TextureSizeProperty tsp = GetComponent<TextureSizeProperty>();
+            TextureProperty tp = GetComponent<TextureProperty>();
+            
+            mpm.OptionalProperties.Remove(tsp);
+            Destroy(tsp);
+            
+            mpm.OptionalProperties.Remove(tp);
+            Destroy(tp);
+        }
+        else
+        {
+            mr.material = generalMaterial;
+            mr.material.SetColor("_Color", c);
+            if (t != null)
+                mr.material.SetTexture("_MainTex", t);
+        }
     }
 
     public void StartPosition()
@@ -30,7 +90,6 @@ public class UpdatePropertiesHandler : MonoBehaviour
         GameObject ground = GameObject.Find("Ground");
         if (ground != null)
         {
-            Debug.Log(name + " " + transform.position.y);
             float height = ground.transform.position.y;
             if (transform.position.y < height)
                 transform.position = new Vector3(transform.position.x, transform.position.y + height, transform.position.z);
@@ -60,8 +119,6 @@ public class UpdatePropertiesHandler : MonoBehaviour
             bool val = await objCont.ContainsObject(name);
             if (val)
             {
-
-                print("The transform has changed!");
                 transform.hasChanged = false;
 
                 objCont.UpdateProperties(this.name);

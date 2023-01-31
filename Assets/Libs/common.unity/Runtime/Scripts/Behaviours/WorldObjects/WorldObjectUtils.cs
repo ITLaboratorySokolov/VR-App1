@@ -50,10 +50,10 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects
         /// <param name="worldObjectDto"></param>
         public static GameObject AddObject(WorldObjectEventsHandler worldObjectEventsHandler, WorldObjectStorage storage, WorldObjectDto worldObjectDto)
         {
-            Debug.Log($"Properties count: {worldObjectDto.Properties.Count}");
+            // Debug.Log($"Properties count: {worldObjectDto.Properties.Count}");
             foreach (var property in worldObjectDto.Properties)
             {
-                Debug.Log($"Property key: {property.Key}; Property value: {property.Value}");
+                // Debug.Log($"Property key: {property.Key}; Property value: {property.Value}");
             }
 
             if (storage.GetTypePrefab(worldObjectDto.Type, out GameObject prefab))
@@ -75,7 +75,9 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects
                 return worldObject;
             }
 
-            throw new ArgumentException("Unsupported object type");
+            Debug.LogError("Unsupported object type");
+            return null;
+            // throw new ArgumentException("Unsupported object type");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using ZCU.TechnologyLab.Common.Serialization.Mesh;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Serializers;
@@ -94,11 +95,12 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Mana
         private void Awake()
         {
             this.meshFilter = this.GetComponent<MeshFilter>();
-            if(this.meshFilter.mesh == null)
+
+            if (this.meshFilter.mesh == null)
             {
                 this.meshFilter.mesh = new Mesh();
             }
-            
+
             this.meshRenderer = this.GetComponent<MeshRenderer>();
             if(this.meshRenderer.material == null)
             {
@@ -235,8 +237,19 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Mana
                 var meshSerializer = this.meshSerializerFactory.RawMeshSerializer;
                 if (SupportedPrimitives.Contains(meshSerializer.PrimitiveSerializer.Deserialize(properties)))
                 {
-                    this.meshFilter.mesh.vertices = PointConverter.FloatToPoint3D(meshSerializer.VerticesSerializer.Deserialize(properties));
+
+                    // TODO tady sem to předělal!
+                    var points = PointConverter.FloatToPoint3D(meshSerializer.VerticesSerializer.Deserialize(properties));
+
+                    int maxPointsIn16 = 65535;
+                    if (points.Length > maxPointsIn16)
+                    {
+                        this.meshFilter.mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+                    }
+
+                    this.meshFilter.mesh.vertices = points;
                     this.meshFilter.mesh.triangles = meshSerializer.IndicesSerializer.Deserialize(properties);
+                    // this.meshFilter.mesh.SetSubMesh(0, new SubMeshDescriptor(0, points.Length));
 
                     this.meshFilter.mesh.RecalculateNormals();
                     this.meshFilter.mesh.RecalculateBounds();

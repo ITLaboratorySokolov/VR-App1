@@ -162,8 +162,10 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects
             var worldObjects = new List<GameObject>();
             foreach (var worldObjectDto in allObjects)
             {
+                Debug.Log(worldObjectDto.Name);
                 GameObject worldObject = WorldObjectUtils.AddObject(this.worldObjectEventsHandler, this.worldObjectStorage, worldObjectDto);
-                worldObjects.Add(worldObject);
+                if (worldObject != null)
+                    worldObjects.Add(worldObject);
             }
 
             return worldObjects;

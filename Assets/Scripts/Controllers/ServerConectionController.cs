@@ -17,6 +17,8 @@ public class ServerConectionController : MonoBehaviour
     ObjectController objCont;
     [SerializeField]
     BoxSpawner bxSpawner;
+    [SerializeField]
+    RigController rigSpawner;
 
     [Header("Serializers")]
     /// <summary> Mesh serializer </summary>
@@ -159,19 +161,40 @@ public class ServerConectionController : MonoBehaviour
         return true;
     }
 
-
     public void SpawnLocalObjects()
     {
-        StartCoroutine(SpawnBoxes());
+        StartCoroutine(SpawnObjectsCorout());
     }
 
-    IEnumerator SpawnBoxes()
+    IEnumerator SpawnObjectsCorout()
     {
         yield return new WaitUntil(() => syncCallDone);
         
         var t = bxSpawner.SpawnInBoxes();
-        while (!t.IsCompleted)
+        var tr = rigSpawner.SpawnRig();
+
+        while (!t.IsCompleted || !tr.IsCompleted)
             yield return null;
+
+        // set rig movement controlls
+        
+        // left hand
+        var lhr = GameObject.Find("LeftHand Controller");
+        var lhs = GameObject.Find(rigSpawner.handLNM);
+        var mc = lhs.AddComponent<MoveController>();
+        mc.parent = lhr.transform;
+
+        // right hand
+        var rhr = GameObject.Find("RightHand Controller");
+        var rhs = GameObject.Find(rigSpawner.handRNM);
+        mc = rhs.AddComponent<MoveController>();
+        mc.parent = rhr.transform;
+
+        // head
+        var hr = GameObject.Find("Main Camera");
+        var hs = GameObject.Find(rigSpawner.headNM);
+        mc = hs.AddComponent<MoveController>();
+        mc.parent = hr.transform;
     }
 
     /// <summary>

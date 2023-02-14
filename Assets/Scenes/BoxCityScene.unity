@@ -7270,6 +7270,7 @@ GameObject:
   - component: {fileID: 901518715}
   - component: {fileID: 901518714}
   - component: {fileID: 901518717}
+  - component: {fileID: 901518718}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7445,6 +7446,26 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &901518718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901518712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b819db033ffe14696de6f384b8ab96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 8818666956281619540, guid: 9a4a2a5831726de46a0f440ca75b52c8, type: 3}
+  lhand: {fileID: 8818666956281619540, guid: 67b7baa5eb1cd884eba7647c182dbdf1, type: 3}
+  rhand: {fileID: 8818666956281619540, guid: 67b7baa5eb1cd884eba7647c182dbdf1, type: 3}
+  headRig: {fileID: 901518713}
+  lhandRig: {fileID: 2071458716}
+  rhandRig: {fileID: 550807087}
+  objCont: {fileID: 158358149}
+  clientName: {fileID: 11400000, guid: 572927c6c6b30e84997bec6d72debab0, type: 2}
 --- !u!1 &934277550
 GameObject:
   m_ObjectHideFlags: 0
@@ -8055,7 +8076,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eddf9d3c15cc4740a9cdf9eb3363f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomSize: {fileID: 11400000, guid: 4a0031afb9d02a042a213119900c5689, type: 2}
   serverUrl: {fileID: 11400000, guid: 95b0b66dae6523e49bd25b768ba71661, type: 2}
+  clientName: {fileID: 11400000, guid: 572927c6c6b30e84997bec6d72debab0, type: 2}
   serverConnection: {fileID: 14158675}
   resetAction: {fileID: 0}
   roomController: {fileID: 5693552670621094281}
@@ -9850,6 +9873,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onDisconnected.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -9888,7 +9915,11 @@ PrefabInstance:
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 14158675}
+      objectReference: {fileID: 2057699542}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2057699542}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onStarted.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: OnlineHandDisplay
@@ -9930,6 +9961,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onDisconnected.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -9947,7 +9982,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SpawnLocalObjects
+      value: SpawnTestBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SpawnTestBox
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onReconnecting.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -9995,7 +10034,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: ServerConectionController, Assembly-CSharp
+      value: BoxSpawner, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: BoxSpawner, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onDisconnected.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -10035,6 +10078,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
       propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: onReconnected.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7695670928186095697, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
@@ -10109,6 +10156,10 @@ PrefabInstance:
       propertyPath: bxSpawner
       value: 
       objectReference: {fileID: 2057699542}
+    - target: {fileID: 7695670928496514463, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
+      propertyPath: rigSpawner
+      value: 
+      objectReference: {fileID: 901518718}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29e91895906447c4fa40e92c75f3f2b8, type: 3}
 --- !u!114 &1575876183 stripped
@@ -12194,6 +12245,7 @@ MonoBehaviour:
   - {fileID: 373487507}
   - {fileID: 872801812}
   objCont: {fileID: 158358149}
+  clientName: {fileID: 11400000, guid: 572927c6c6b30e84997bec6d72debab0, type: 2}
 --- !u!1 &2071458715
 GameObject:
   m_ObjectHideFlags: 0

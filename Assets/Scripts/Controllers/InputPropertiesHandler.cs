@@ -60,6 +60,8 @@ public class InputPropertiesHandler : MonoBehaviour
             if (t != null)
                 mr.material.SetTexture("_MainTex", t);
 
+            // TODO enable gravity only for "local" objects
+
             // no updating of texture properties!
             // TODO todle je asi blbost
             MeshPropertiesManager mpm = GetComponent<MeshPropertiesManager>();
@@ -72,6 +74,47 @@ public class InputPropertiesHandler : MonoBehaviour
             
             mpm.OptionalProperties.Remove(tp);
             Destroy(tp);
+        }
+        else if (name.StartsWith("Head") || name.StartsWith("Hand")) //HandL or LHand??
+        {
+            mr.material = generalMaterial;
+            mr.material.SetColor("_Color", c);
+            if (t != null)
+                mr.material.SetTexture("_MainTex", t);
+
+            // odebrat grabbable??
+            if (GetComponent<XRGrabInteractable>() != null)
+                GetComponent<XRGrabInteractable>().enabled = false;
+            
+            // bez collideru?
+            BoxCollider bc = GetComponent<BoxCollider>();
+            MeshCollider mc = GetComponent<MeshCollider>();
+            SphereCollider sc = GetComponent<SphereCollider>();
+
+            if (bc != null)
+            {
+                bc.size = new Vector3();
+                bc.enabled = false;
+            }
+
+            if (mc != null)
+            {
+                mc.enabled = false;
+                mc.sharedMesh = null;
+            }
+
+            if (sc != null)
+            {
+                sc.radius = 0;
+                sc.enabled = false;
+            }
+
+            if (GetComponent<Rigidbody>() != null)
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<Rigidbody>().isKinematic = true;
+            }
+
         }
         else
         {
@@ -92,6 +135,8 @@ public class InputPropertiesHandler : MonoBehaviour
 
                 Mesh m = GetComponent<MeshFilter>().mesh;
                 BoxCollider col = GetComponent<BoxCollider>();
+                col.enabled = true;
+
                 col.center = m.bounds.center;
                 col.size= m.bounds.size;
             }

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: -4393926768617357932}
   - component: {fileID: -4496007307336150297}
   - component: {fileID: 3126381979048886975}
+  - component: {fileID: -8356281054743102718}
   m_Layer: 0
   m_Name: CardboardBox_1
   m_TagString: Untagged
@@ -395,3 +396,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf6608d97a52e24788999bf62ac46dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8356281054743102718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826705113580068572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26249aae85772544ba5651c4dc990fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reportTransformChangedEvent: 1
+  transformChangedEventReportDelay: 0.25

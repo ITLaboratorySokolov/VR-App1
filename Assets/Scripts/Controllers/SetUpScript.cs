@@ -16,11 +16,15 @@ public class SetUpScript : MonoBehaviour
     [Header("Config")]
     /// <summary> Path to config file </summary>
     string pathToConfig;
+    [SerializeField]
+    Vec2FVariable roomSize;
 
     [Header("Server connection")]
     /// <summary> Server url </summary>
     [SerializeField]
     private StringVariable serverUrl;
+    [SerializeField]
+    private StringVariable clientName;
     /// <summary> Server connection </summary>
     [SerializeField]
     ServerConectionController serverConnection;
@@ -38,6 +42,8 @@ public class SetUpScript : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        /*
+        // read config
         pathToConfig = Directory.GetCurrentDirectory() + "\\config.txt";
         Debug.Log(pathToConfig);
 
@@ -48,11 +54,16 @@ public class SetUpScript : MonoBehaviour
         if (resetAction != null)
             resetAction.action.performed += ResetSetUp;
 
+        */
     }
 
     private void Start()
     {
+        float wX = roomSize.Value.x;
+        float wZ = roomSize.Value.y;
 
+        if (wX != 0 && wZ != 0)
+            roomController.SetRoomSize(wX, wZ);
     }
 
     private void ReadConfig()
@@ -61,13 +72,16 @@ public class SetUpScript : MonoBehaviour
         {
             Debug.Log("Loading config file...");
             string[] lines = File.ReadAllLines(pathToConfig);
-            if (lines.Length >= 2)
+            if (lines.Length >= 3)
             {
+                // process client name
+                clientName.Value = lines[0].Trim();
+
                 // process url
-                serverUrl.Value = lines[0].Trim();
+                serverUrl.Value = lines[1].Trim();
 
                 // process room size: "wX, wZ"
-                string roomSize = lines[1].Trim();
+                string roomSize = lines[2].Trim();
                 var sizes = roomSize.Split(',');
                 float wX = 0;
                 float wZ = 0;
@@ -91,4 +105,5 @@ public class SetUpScript : MonoBehaviour
         ReadConfig();
         serverConnection.ResetConnection();
     }
+
 }

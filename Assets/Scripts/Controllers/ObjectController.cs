@@ -43,6 +43,13 @@ public class ObjectController : MonoBehaviour
     {
         await woManager.RemoveObjectAsync(name);
         Destroy(obj);
+
+        Debug.Log("Destroyed " + name);
+    }
+
+    internal async Task DestroyObject(string name)
+    {
+        await woManager.RemoveObjectAsync(name);
         Debug.Log("Destroyed " + name);
     }
 

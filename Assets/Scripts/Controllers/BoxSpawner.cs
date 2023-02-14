@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 
 public class BoxSpawner : MonoBehaviour
 {
@@ -13,10 +14,49 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField]
     ObjectController objCont;
 
+    [SerializeField]
+    StringVariable clientName;
+
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    public void SpawnTestBox()
+    {
+        StartCoroutine(TestCorout());
+    }
+
+    public IEnumerator TestCorout()
+    {
+        var t = SpawnTestBoxT();
+
+        while (!t.IsCompleted)
+            yield return null;
+
+        Debug.Log("Done spawning test box");
+    }
+
+    public async Task SpawnTestBoxT()
+    {
+        GameObject o = Instantiate(boxes[0], boxPositions[0].transform.position, boxPositions[0].transform.rotation, this.transform);
+        var uph = o.GetComponent<InputPropertiesHandler>();
+        uph.objCont = objCont;
+        uph.StartPosition();
+        string name = "CardboardBox_Test";
+        o.name = name;
+        
+        bool val = await objCont.ContainsObject(name);
+        if (val)
+        {
+            Destroy(o);
+            await objCont.UpdateProperties(name);
+        }
+        else
+        {
+            await objCont.AddObjectAsync(o);
+        }
     }
 
     public async Task SpawnInBoxes()
@@ -28,7 +68,7 @@ public class BoxSpawner : MonoBehaviour
             var uph = o.GetComponent<InputPropertiesHandler>();
             uph.objCont = objCont;
             uph.StartPosition();
-            string name = "CardboardBox_" + i;
+            string name = "CardboardBox_" + clientName.Value + "_" + i;
             o.name = name;
 
             // send/update to server

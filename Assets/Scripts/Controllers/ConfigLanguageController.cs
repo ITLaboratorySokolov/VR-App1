@@ -19,6 +19,9 @@ public class ConfigLanguageController : MonoBehaviour
     string inputPromptCZ = "Napište text...";
     string inputPromptEN = "Enter text...";
 
+    string contCZ = "Ovládání";
+    string contEN = "Controls";
+
     string langCZ = "EN";
     string langEN = "CZ";
 
@@ -42,6 +45,20 @@ public class ConfigLanguageController : MonoBehaviour
     [SerializeField()]
     TMP_InputField urlFLD;
 
+    [Header("Controls")]
+    [SerializeField()]
+    GameObject controlsCZ;
+    [SerializeField()]
+    GameObject controlsEN;
+    [SerializeField()]
+    Button controlsBT;
+
+    public void Start()
+    {
+        lang = "CZ";
+        SwapLabels();
+        SetControls();
+    }
 
     public void SwapLanguage()
     {
@@ -51,6 +68,7 @@ public class ConfigLanguageController : MonoBehaviour
             lang = "EN";
 
         SwapLabels();
+        SetControls();
     }
 
     public void SwapLabels()
@@ -65,6 +83,8 @@ public class ConfigLanguageController : MonoBehaviour
 
             nameFLD.placeholder.GetComponent<TMP_Text>().text = inputPromptEN;
             urlFLD.placeholder.GetComponent<TMP_Text>().text = inputPromptEN;
+
+            controlsBT.GetComponentInChildren<TMP_Text>().text = contEN;
         }
         else if (lang == "CZ")
         {
@@ -76,6 +96,22 @@ public class ConfigLanguageController : MonoBehaviour
 
             nameFLD.placeholder.GetComponent<TMP_Text>().text = inputPromptCZ;
             urlFLD.placeholder.GetComponent<TMP_Text>().text = inputPromptCZ;
+
+            controlsBT.GetComponentInChildren<TMP_Text>().text = contCZ;
+        }
+    }
+
+    private void SetControls()
+    {
+        if (lang == "CZ")
+        {
+            controlsCZ.SetActive(true);
+            controlsEN.SetActive(false);
+        }
+        else if (lang == "EN")
+        {
+            controlsEN.SetActive(true);
+            controlsCZ.SetActive(false);
         }
     }
 }

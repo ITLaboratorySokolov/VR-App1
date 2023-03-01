@@ -60,8 +60,16 @@ public class InputPropertiesHandler : MonoBehaviour
             if (t != null)
                 mr.material.SetTexture("_MainTex", t);
 
-            // TODO enable gravity only for "local" objects
+            // enable gravity only for "local" objects
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (name.StartsWith("CardboardBox_" + objCont.clientName.Value))
+            {
+                rb.useGravity = true;
+                rb.isKinematic = false;
+            }
 
+
+            /*
             // no updating of texture properties!
             // TODO todle je asi blbost
             MeshPropertiesManager mpm = GetComponent<MeshPropertiesManager>();
@@ -74,6 +82,7 @@ public class InputPropertiesHandler : MonoBehaviour
             
             mpm.OptionalProperties.Remove(tp);
             Destroy(tp);
+            */
         }
         else if (name.StartsWith("Head") || name.StartsWith("Hand")) //HandL or LHand??
         {

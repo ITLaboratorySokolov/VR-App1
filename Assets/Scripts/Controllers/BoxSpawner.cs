@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,9 +14,8 @@ public class BoxSpawner : MonoBehaviour
     GameObject[] boxPositions;
     [SerializeField]
     ObjectController objCont;
-
     [SerializeField]
-    StringVariable clientName;
+    GameObject serverObjectParent;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +68,7 @@ public class BoxSpawner : MonoBehaviour
             var uph = o.GetComponent<InputPropertiesHandler>();
             uph.objCont = objCont;
             uph.StartPosition();
-            string name = "CardboardBox_" + clientName.Value + "_" + i;
+            string name = "CardboardBox_" + objCont.clientName.Value + "_" + i;
             o.name = name;
 
             // send/update to server
@@ -90,5 +90,20 @@ public class BoxSpawner : MonoBehaviour
     void Update()
     {
         
+    }
+
+    internal async Task DeleteBoxesFromServer()
+    {
+        List<GameObject> gol = new List<GameObject>();
+
+        foreach (Transform child in serverObjectParent.transform)
+        {
+            if (child.gameObject.name.StartsWith("CardboardBox_" + objCont.clientName.Value))
+                gol.Add(child.gameObject);
+        }
+
+        Debug.Log(gol.Count);
+
+        await objCont.RemoveObjects(gol);
     }
 }

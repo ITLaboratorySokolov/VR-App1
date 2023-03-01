@@ -20,6 +20,7 @@ public class ConfigController : MonoBehaviour
     [SerializeField]
     string nextScene;
 
+    [Header("Text")]
     [SerializeField]
     StringVariable serverUrl;
     [SerializeField]
@@ -27,6 +28,7 @@ public class ConfigController : MonoBehaviour
     [SerializeField]
     Vec2FVariable roomSizeVal;
 
+    [Header("InputFields")]
     [SerializeField]
     TMP_InputField urlTXT;
     [SerializeField]
@@ -35,6 +37,10 @@ public class ConfigController : MonoBehaviour
     TMP_InputField roomSizeXTXT;
     [SerializeField]
     TMP_InputField roomSizeZTXT;
+
+    [Header("GameObjects")]
+    [SerializeField]
+    GameObject controlsPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +54,6 @@ public class ConfigController : MonoBehaviour
         ReadConfig();
 
         // display values
-        langController.SwapLabels();
         DisplayValues();
     }
 
@@ -114,8 +119,13 @@ public class ConfigController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    public void ToggleControlsPanel(bool val)
     {
-        // write to file
+        controlsPanel.SetActive(val);
+    }
+
+    public void OnExit()
+    {
+        Application.Quit();
     }
 }

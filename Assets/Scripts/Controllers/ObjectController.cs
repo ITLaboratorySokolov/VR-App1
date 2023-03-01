@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Server;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Storage;
@@ -10,6 +11,7 @@ public class ObjectController : MonoBehaviour
     public WorldObjectManager woManager;
     public WorldObjectMemoryStorage woMemoryStorage;
     public ServerDataAdapterWrapper dataAdapter;
+    public StringVariable clientName;
 
 
     public Task<IEnumerable<GameObject>> ObjectRecieve()
@@ -22,6 +24,12 @@ public class ObjectController : MonoBehaviour
     {
         Debug.Log("Remove");
         await woManager.RemoveObjectAsync(name);
+    }
+
+    public async Task RemoveObjects(List<GameObject> objs)
+    {
+        for (int i = 0; i < objs.Count; i++)
+            await DestroyObject(objs[i].name, objs[i]);
     }
 
     public void ObjectsClear()
@@ -50,6 +58,7 @@ public class ObjectController : MonoBehaviour
     internal async Task DestroyObject(string name)
     {
         await woManager.RemoveObjectAsync(name);
+
         Debug.Log("Destroyed " + name);
     }
 

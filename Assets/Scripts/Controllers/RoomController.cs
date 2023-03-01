@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class RoomController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class RoomController : MonoBehaviour
     WallCollisionProcessor wallCollisionProcessor;
 
     [SerializeField]
-    Transform roomCenter;
+    GameObject player;
 
     [SerializeField]
     GameObject walkableGround;
@@ -28,6 +29,13 @@ public class RoomController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnTeleport(TeleportingEventArgs args)
+    {
+        Debug.Log("Teleporting");
+        Debug.Log("From: " + player.transform.position);
+        Debug.Log("To: " + args.teleportRequest.destinationPosition);
     }
 
     public void SetRoomSize(float wX, float wZ)
@@ -54,13 +62,4 @@ public class RoomController : MonoBehaviour
         scene.transform.localScale = scale;
     }
 
-    private void CenterRoom()
-    {
-        Vector3 center = roomCenter.position;
-
-        walkableGround.transform.position = center;
-        scene.transform.position = center;
-        displayGround.transform.position = new Vector3(center.x, center.y - 0.05f, center.z);
-        wallCollisionProcessor.MoveWallPosition(center);
-    }
 }

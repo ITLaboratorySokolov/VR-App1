@@ -112,7 +112,6 @@ public class ServerConectionController : MonoBehaviour
     {
         yield return new WaitUntil(() => session.State == SessionState.Connected);
 
-
         var res = GetObjectsAsync();
         while (!res.IsCompleted)
         {
@@ -163,21 +162,33 @@ public class ServerConectionController : MonoBehaviour
 
     public void SpawnLocalObjects()
     {
-        StartCoroutine(SpawnObjectsCorout());
+        StartCoroutine(SpawnBoxesCorout());
+        StartCoroutine(SpawnRigCorout());
     }
 
-    IEnumerator SpawnObjectsCorout()
+    IEnumerator SpawnBoxesCorout()
     {
         yield return new WaitUntil(() => syncCallDone);
         
         var t = bxSpawner.SpawnInBoxes();
-        var tr = rigSpawner.SpawnRig();
 
-        while (!t.IsCompleted || !tr.IsCompleted)
+        while (!t.IsCompleted)
+            yield return null;
+
+        Debug.Log("Spawned local boxes");
+    }
+
+    IEnumerator SpawnRigCorout()
+    {
+        yield return new WaitUntil(() => syncCallDone);
+
+        var tr = rigSpawner.AddRigToServer();
+
+        while (!tr.IsCompleted)
             yield return null;
 
         // set rig movement controlls
-        
+
         // left hand
         var lhr = GameObject.Find("LeftHand Controller");
         var lhs = GameObject.Find(rigSpawner.handLNM);
@@ -195,6 +206,8 @@ public class ServerConectionController : MonoBehaviour
         var hs = GameObject.Find(rigSpawner.headNM);
         mc = hs.AddComponent<MoveController>();
         mc.parent = hr.transform;
+
+        rigSpawner.SwapColor(true);
     }
 
     /// <summary>
@@ -204,6 +217,41 @@ public class ServerConectionController : MonoBehaviour
     {
         actionEnd.Invoke();
     }
+
+    public void RespawnBoxes()
+    {
+        Debug.Log("Respawning");
+
+        if (session.State != SessionState.Connected)
+            return;
+
+        // TODO
+        StartCoroutine(DeleteBoxesFromServer());
+        StartCoroutine(SpawnBoxesCorout());
+
+        Debug.Log("Reset local boxes");
+    }
+
+    public void ClearBoxes()
+    {
+        Debug.Log("Clearing");
+
+        if (session.State != SessionState.Connected)
+            return;
+
+        StartCoroutine(DeleteBoxesFromServer());
+    }
+
+    private IEnumerator DeleteBoxesFromServer()
+    {
+        Task t = bxSpawner.DeleteBoxesFromServer();
+
+        while (!t.IsCompleted)
+            yield return null;
+
+        Debug.Log("Deleted boxes from server");
+    }
+
 
     //----------------------------------------------------------------------------------------------------------------------------------------
 

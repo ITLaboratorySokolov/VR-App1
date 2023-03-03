@@ -5,6 +5,7 @@ using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Server;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Storage;
+using ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Storage;
 
 public class ObjectController : MonoBehaviour
 {
@@ -64,18 +65,7 @@ public class ObjectController : MonoBehaviour
 
     internal async Task<bool> ContainsObject(string name)
     {
-        bool ret = false;
-        try
-        {
-            var d = await dataAdapter.GetWorldObjectAsync(name);
-            ret = true;
-        }
-        catch
-        {
-            ret = false;
-        }
-
-        return ret;
+        return await dataAdapter.ContainsWorldObjectAsync(name);
     }
 
     internal async Task AddObjectAsync(GameObject obj)

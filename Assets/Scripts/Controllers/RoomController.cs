@@ -7,17 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class RoomController : MonoBehaviour
 {
     [SerializeField]
-    WallCollisionProcessor wallCollisionProcessor;
+    WallCollisionProcessor irlRoomWalls;
 
     [SerializeField]
     GameObject player;
 
     [SerializeField]
-    GameObject walkableGround;
-    [SerializeField]
-    GameObject displayGround;
-    [SerializeField]
-    GameObject scene;
+    GameObject irlGround;
 
     // Start is called before the first frame update
     void Start()
@@ -39,27 +35,29 @@ public class RoomController : MonoBehaviour
     }
 
     public void SetRoomSize(float wX, float wZ)
-    {
+    { 
         // set position of walls
-        wallCollisionProcessor.SetBorderWall(wX, wZ);
+        irlRoomWalls.SetBorderWall(wX, wZ);
 
         // set size of teleportation area
-        float currentSizeX = walkableGround.GetComponent<Renderer>().bounds.size.x;
-        float currentSizeZ = walkableGround.GetComponent<Renderer>().bounds.size.z;
+        float currentSizeX = irlGround.GetComponent<Renderer>().bounds.size.x;
+        float currentSizeZ = irlGround.GetComponent<Renderer>().bounds.size.z;
 
-        Vector3 scale = walkableGround.transform.localScale;
+        Vector3 scale = irlGround.transform.localScale;
         scale.x = wX * (scale.x / currentSizeX);
         scale.z = wZ * (scale.z / currentSizeZ);
 
-        float scalingX = scale.x / walkableGround.transform.localScale.x;
-        float scalingZ = scale.z / walkableGround.transform.localScale.z;
+        float scalingX = scale.x / irlGround.transform.localScale.x;
+        float scalingZ = scale.z / irlGround.transform.localScale.z;
 
-        walkableGround.transform.localScale = scale;
+        irlGround.transform.localScale = scale;
 
+        /*
         scale = scene.transform.localScale;
         scale.x = scale.x * scalingX;
         scale.z = scale.z * scalingZ;
         scene.transform.localScale = scale;
+        */
     }
 
 }

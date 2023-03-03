@@ -136,10 +136,14 @@ public class ServerConectionController : MonoBehaviour
             // Get all objects
             IEnumerable<GameObject> gmobjs = await objCont.ObjectRecieve();
 
+            Debug.Log("Got objects");
+
             // If object is recognized as a line
             foreach (GameObject obj in gmobjs)
             {
                 string n = obj.name;
+
+                Debug.Log(n);
 
                 var uph = obj.GetComponent<InputPropertiesHandler>();
                 uph.objCont = objCont;

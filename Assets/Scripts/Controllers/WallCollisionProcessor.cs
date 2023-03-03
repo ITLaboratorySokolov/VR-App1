@@ -59,7 +59,7 @@ public class WallCollisionProcessor : MonoBehaviour
         if (wallTF.rotation.eulerAngles.y % 180 == 0)
         {
             Vector3 oldP = wallTF.position;
-            wallTF.position = new Vector3(oldP.x, oldP.y, (-f.z) * wZ / 2.0f);
+            wallTF.position = new Vector3(oldP.x, oldP.y, (-f.z) * (wZ / 2.0f));
         }
         else
         {

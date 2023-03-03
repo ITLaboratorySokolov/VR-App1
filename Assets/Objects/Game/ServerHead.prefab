@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 4612185032999874126}
   - component: {fileID: 4700982329229235291}
   - component: {fileID: -1675269781914447759}
-  - component: {fileID: 7352040669347868046}
+  - component: {fileID: 9116590890000324345}
+  - component: {fileID: 4832328436997958022}
+  - component: {fileID: 4827459934453815050}
   m_Layer: 0
   m_Name: ServerHead
   m_TagString: Untagged
@@ -131,7 +133,7 @@ MonoBehaviour:
   lineMaterial: {fileID: 2100000, guid: be43344bf2e17d84280b0187eac0242a, type: 2}
   boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
   generalMaterial: {fileID: 2100000, guid: a56a8b4213c8e7a44ba8e98097309aa2, type: 2}
---- !u!114 &7352040669347868046
+--- !u!114 &9116590890000324345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +142,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 8818666956281619540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b4865087a51dc42a8866aaed8881fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionalProperties: []
+  _optionalPropertiesManager: {fileID: 4832328436997958022}
+--- !u!114 &4832328436997958022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818666956281619540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93e7dde2acd9a9488e3c95188be75b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _optionalProperties: []
+--- !u!114 &4827459934453815050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818666956281619540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73abb31927646aa4e92d771f89a5f9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableReporting: 1
+  _reportDelay: 0.25

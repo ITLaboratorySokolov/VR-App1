@@ -9,19 +9,21 @@ public class VRController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
-        // XRSettings.enabled = false;
+        XRGeneralSettings.Instance.Manager.StopSubsystems();
+        //XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+        // StartCoroutine(StopCardboard());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnDestroy()
     {
-        XRGeneralSettings.Instance.Manager.InitializeLoader();
+        //XRGeneralSettings.Instance.Manager.InitializeLoader();
         // XRSettings.enabled = true;
+        XRGeneralSettings.Instance.Manager.StartSubsystems();
     }
 }

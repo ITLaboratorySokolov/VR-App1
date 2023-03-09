@@ -36,11 +36,27 @@ public class RigController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        XRGeneralSettings.Instance.Manager.StartSubsystems();
+        StartCoroutine(StartXR());
+        //XRGeneralSettings.Instance.Manager.StartSubsystems();
 
         // spawn rig components
         SpawnRig();
         SwapColor(false);
+    }
+
+    IEnumerator StartXR()
+    {
+        yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+        if (XRGeneralSettings.Instance.Manager.activeLoader == null)
+        {
+            Debug.LogError("Initializing XR Failed. Check Editor or Player log for details.");
+        }
+        else
+        {
+            Debug.Log("Starting XR...");
+            XRGeneralSettings.Instance.Manager.StartSubsystems();
+            yield return null;
+        }
     }
 
     // Update is called once per frame
@@ -114,6 +130,13 @@ public class RigController : MonoBehaviour
         handLNM = "HandL_" + objCont.clientName.Value;
         handRNM = "HandR_" + objCont.clientName.Value;
         headNM = "Head_" + objCont.clientName.Value;
+
+        if (lHandObj == null)
+            lHandObj = SpawnRigComponent(lhand, lhandRig, handLNM);
+        if (rHandObj == null)
+            rHandObj = SpawnRigComponent(rhand, rhandRig, handRNM);
+        if (headObj == null)
+            headObj = SpawnRigComponent(head, headRig, headNM);
 
         // left hand
         bool res = await SendRigComponent(lHandObj);

@@ -72,8 +72,11 @@ public class ServerConectionController : MonoBehaviour
 
     public void OnReconnected()
     {
+        // bxSpawner.SpawnTestBox();
+
         objCont.ObjectsClear();
         StartCoroutine(SyncCall());
+        SpawnLocalObjects();
     }
 
     /// <summary>
@@ -147,7 +150,6 @@ public class ServerConectionController : MonoBehaviour
 
                 var uph = obj.GetComponent<InputPropertiesHandler>();
                 uph.objCont = objCont;
-                uph.serverConnection = this;
                 uph.StartPosition();
                 Debug.Log("Recieved " + n);
             }

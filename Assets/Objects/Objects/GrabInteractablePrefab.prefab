@@ -296,7 +296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objCont: {fileID: 0}
-  serverConnection: {fileID: 0}
   lineMaterial: {fileID: 2100000, guid: be43344bf2e17d84280b0187eac0242a, type: 2}
   boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
   generalMaterial: {fileID: 2100000, guid: a56a8b4213c8e7a44ba8e98097309aa2, type: 2}
@@ -440,4 +439,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enableReporting: 1
-  _reportDelay: 0.25
+  _reportDelay: 0.1

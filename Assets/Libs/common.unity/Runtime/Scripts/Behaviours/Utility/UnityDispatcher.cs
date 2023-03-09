@@ -43,7 +43,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Utility
             {
                 while (ExecutionQueue.Count > 0)
                 {
-                    ExecutionQueue.Dequeue().Invoke();
+                        ExecutionQueue.Dequeue().Invoke();
                 }
             }
         }

@@ -79,4 +79,11 @@ public class ObjectController : MonoBehaviour
         // Debug.Log("Update " + name);
         await woManager.UpdateObjectAsync(name);
     }
+
+    public void AddedNewObjectAtRuntime(GameObject o)
+    {
+        var iph = o.GetComponent<InputPropertiesHandler>();
+        if (iph != null)
+            iph.objCont = this;
+    }
 }

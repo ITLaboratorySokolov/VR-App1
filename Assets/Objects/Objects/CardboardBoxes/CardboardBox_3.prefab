@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enableReporting: 1
-  _reportDelay: 0.25
+  _reportDelay: 0.1
 --- !u!114 &5775532683841411952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objCont: {fileID: 0}
-  serverConnection: {fileID: 0}
   lineMaterial: {fileID: 0}
   boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
   generalMaterial: {fileID: 0}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -12,8 +13,6 @@ public class InputPropertiesHandler : MonoBehaviour
 
     [SerializeField]
     public ObjectController objCont;
-    [SerializeField]
-    public ServerConectionController serverConnection;
 
     Vector3 newPos;
     Vector3 lastPos;
@@ -60,29 +59,14 @@ public class InputPropertiesHandler : MonoBehaviour
             if (t != null)
                 mr.material.SetTexture("_MainTex", t);
 
+            // GRAVITY DISABLED
             // enable gravity only for "local" objects
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (name.StartsWith("CardboardBox_" + objCont.clientName.Value))
-            {
-                rb.useGravity = true;
-                rb.isKinematic = false;
-            }
-
-
-            /*
-            // no updating of texture properties!
-            // TODO todle je asi blbost
-            MeshPropertiesManager mpm = GetComponent<MeshPropertiesManager>();
-            
-            TextureSizeProperty tsp = GetComponent<TextureSizeProperty>();
-            TextureProperty tp = GetComponent<TextureProperty>();
-            
-            mpm.OptionalProperties.Remove(tsp);
-            Destroy(tsp);
-            
-            mpm.OptionalProperties.Remove(tp);
-            Destroy(tp);
-            */
+            // Rigidbody rb = GetComponent<Rigidbody>();
+            // if (name.StartsWith("CardboardBox_" + objCont.clientName.Value))
+            // {
+            //    rb.useGravity = true;
+            //    rb.isKinematic = false;
+            // }
         }
         else if (name.StartsWith("Head") || name.StartsWith("Hand")) //HandL or LHand??
         {
@@ -140,11 +124,13 @@ public class InputPropertiesHandler : MonoBehaviour
 
             if (bpm != null || (!bc.enabled && !mc.enabled && !sc.enabled) || bc.size == new Vector3() )
             {
-                Debug.Log("Setting colider for " + name);
+                Debug.Log("Setting colider for " + name + " in " + Thread.CurrentThread.ManagedThreadId + " " + Thread.CurrentThread.ManagedThreadId);
 
                 Mesh m = GetComponent<MeshFilter>().mesh;
                 BoxCollider col = GetComponent<BoxCollider>();
                 col.enabled = true;
+
+                Debug.Log("Coliders set " + gameObject.name);
 
                 col.center = m.bounds.center;
                 col.size= m.bounds.size;
@@ -160,7 +146,6 @@ public class InputPropertiesHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     

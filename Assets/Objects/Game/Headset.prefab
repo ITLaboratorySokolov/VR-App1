@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9072252889460262324}
   - component: {fileID: -2796958031980291130}
   - component: {fileID: -7357711362169336891}
+  - component: {fileID: 4508153972618582950}
   m_Layer: 0
   m_Name: Headset
   m_TagString: Untagged
@@ -128,11 +129,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8402073885225655497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73abb31927646aa4e92d771f89a5f9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableReporting: 1
-  _reportDelay: 0.1
+  _supportedTexturePixelFormats:
+  - Name: RGB
+    Format: 3
+  - Name: RGBA
+    Format: 4
+  - Name: ARGB
+    Format: 5
+  _optionalPropertiesManager: {fileID: 9072252889460262324}
 --- !u!114 &9072252889460262324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,10 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8402073885225655497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b4865087a51dc42a8866aaed8881fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8649ce6e16a74a8982673b4253a77866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalPropertiesManager: {fileID: -2796958031980291130}
+  _optionalProperties:
+  - {fileID: 4508153972618582950}
 --- !u!114 &-2796958031980291130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,12 +163,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8402073885225655497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93e7dde2acd9a9488e3c95188be75b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 26249aae85772544ba5651c4dc990fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalProperties:
-  - {fileID: -7357711362169336891}
+  _enableReporting: 1
+  _reportDelay: 0.1
 --- !u!114 &-7357711362169336891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8402073885225655497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf6608d97a52e24788999bf62ac46dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4508153972618582950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

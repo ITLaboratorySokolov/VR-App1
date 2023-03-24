@@ -9,6 +9,7 @@ TagManager:
   - controller
   - grabbable
   - worldObject
+  - serverObject
   layers:
   - Default
   - TransparentFX

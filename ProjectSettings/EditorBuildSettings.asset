@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SetUpScene.unity
+    path: Assets/Scenes/BoxCity.unity
     guid: c8d5806a224dcbc46960acd72482e5d8
   - enabled: 1
-    path: Assets/Scenes/BoxCityScene.unity
+    path: Assets/Scenes/CityScene.unity
     guid: 754e4f7f416f58541beb3024bb123865
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ee85b5ea78baf004ea9ea5b4553ba614, type: 2}

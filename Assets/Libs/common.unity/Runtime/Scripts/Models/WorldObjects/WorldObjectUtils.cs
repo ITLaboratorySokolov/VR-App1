@@ -67,15 +67,10 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects
             var worldObject = Object.Instantiate(prefab);
             worldObject.name = worldObjectDto.Name;
 
-            Debug.Log("Instantiated " + worldObjectDto.Name);
-
             SetTransform(worldObject, worldObjectDto.Position, worldObjectDto.Rotation, worldObjectDto.Scale);
 
             var propertiesManager = GetPropertiesManager(worldObject);
             propertiesManager.SetProperties(worldObjectDto.Properties);
-
-            Debug.Log("Set properties " + worldObjectDto.Name);
-
             storage.Store(worldObject);
 
             if (worldObjectEventsHandler != null)

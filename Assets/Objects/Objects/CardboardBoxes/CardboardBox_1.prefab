@@ -16,13 +16,13 @@ GameObject:
   - component: {fileID: 3040083239021186182}
   - component: {fileID: 1170122324685342465}
   - component: {fileID: -7965352083259828854}
-  - component: {fileID: 174362064461970859}
-  - component: {fileID: 572977646016913033}
+  - component: {fileID: -495344804924238804}
   - component: {fileID: 3916836876125307837}
   - component: {fileID: 1454417765996835828}
   - component: {fileID: 3126381979048886975}
+  - component: {fileID: 174362064461970859}
   - component: {fileID: 5083316830540570278}
-  - component: {fileID: -495344804924238804}
+  - component: {fileID: 572977646016913033}
   m_Layer: 0
   m_Name: CardboardBox_1
   m_TagString: Untagged
@@ -279,7 +279,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.00001
   m_Center: {x: 0, y: 0.0043862313, z: -0.00000023841858}
---- !u!114 &174362064461970859
+--- !u!114 &-495344804924238804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,26 +288,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 826705113580068572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b4865087a51dc42a8866aaed8881fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 662512661c28a5e4a9cf99a06b7d33a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalPropertiesManager: {fileID: 572977646016913033}
---- !u!114 &572977646016913033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826705113580068572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93e7dde2acd9a9488e3c95188be75b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _optionalProperties:
-  - {fileID: 3916836876125307837}
-  - {fileID: 1454417765996835828}
-  - {fileID: 3126381979048886975}
+  objCont: {fileID: 0}
+  lineMaterial: {fileID: 0}
+  boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
+  generalMaterial: {fileID: 0}
 --- !u!114 &3916836876125307837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +337,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf6608d97a52e24788999bf62ac46dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &174362064461970859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826705113580068572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _supportedTexturePixelFormats:
+  - Name: RGB
+    Format: 3
+  - Name: RGBA
+    Format: 4
+  - Name: ARGB
+    Format: 5
+  _optionalPropertiesManager: {fileID: 5083316830540570278}
 --- !u!114 &5083316830540570278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,12 +366,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 826705113580068572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73abb31927646aa4e92d771f89a5f9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8649ce6e16a74a8982673b4253a77866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableReporting: 1
-  _reportDelay: 0.1
---- !u!114 &-495344804924238804
+  _optionalProperties:
+  - {fileID: 3916836876125307837}
+  - {fileID: 1454417765996835828}
+  - {fileID: 3126381979048886975}
+--- !u!114 &572977646016913033
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -373,10 +382,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 826705113580068572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662512661c28a5e4a9cf99a06b7d33a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 26249aae85772544ba5651c4dc990fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objCont: {fileID: 0}
-  lineMaterial: {fileID: 0}
-  boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
-  generalMaterial: {fileID: 0}
+  _enableReporting: 1
+  _reportDelay: 0.1

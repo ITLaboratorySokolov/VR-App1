@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using ZCU.TechnologyLab.Common.Connections.Client.Session;
 using ZCU.TechnologyLab.Common.Serialization.Mesh;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Client.Session;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
@@ -19,6 +20,8 @@ public class ServerConectionController : MonoBehaviour
     BoxSpawner bxSpawner;
     [SerializeField]
     RigController rigSpawner;
+    [SerializeField]
+    MinigameController minigame;
 
     [Header("Serializers")]
     /// <summary> Mesh serializer </summary>
@@ -231,7 +234,7 @@ public class ServerConectionController : MonoBehaviour
         if (session.State != SessionState.Connected)
             return;
 
-        // TODO
+        minigame.ResetCount();
         StartCoroutine(DeleteBoxesFromServer());
         StartCoroutine(SpawnBoxesCorout());
 
@@ -245,6 +248,7 @@ public class ServerConectionController : MonoBehaviour
         if (session.State != SessionState.Connected)
             return;
 
+        minigame.ResetCount();
         StartCoroutine(DeleteBoxesFromServer());
     }
 

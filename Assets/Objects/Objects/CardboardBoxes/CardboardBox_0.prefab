@@ -16,13 +16,13 @@ GameObject:
   - component: {fileID: 2506741489584089281}
   - component: {fileID: 6031496959641810909}
   - component: {fileID: -4061938134294650089}
+  - component: {fileID: 3453079426856474533}
   - component: {fileID: 4863943668855908486}
   - component: {fileID: 1645827977904431722}
   - component: {fileID: 8770465320824299404}
   - component: {fileID: 7485763013228044905}
   - component: {fileID: 4938311216820052476}
   - component: {fileID: 6764280239303350449}
-  - component: {fileID: 3453079426856474533}
   m_Layer: 0
   m_Name: CardboardBox_0
   m_TagString: Untagged
@@ -279,6 +279,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.00001
   m_Center: {x: 0, y: 0.0043398887, z: -0.000000029802322}
+--- !u!114 &3453079426856474533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381866689056338526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662512661c28a5e4a9cf99a06b7d33a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objCont: {fileID: 0}
+  lineMaterial: {fileID: 0}
+  boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
+  generalMaterial: {fileID: 0}
 --- !u!114 &4863943668855908486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,11 +346,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4381866689056338526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73abb31927646aa4e92d771f89a5f9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableReporting: 1
-  _reportDelay: 0.1
+  _supportedTexturePixelFormats:
+  - Name: RGB
+    Format: 3
+  - Name: RGBA
+    Format: 4
+  - Name: ARGB
+    Format: 5
+  _optionalPropertiesManager: {fileID: 4938311216820052476}
 --- !u!114 &4938311216820052476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,10 +366,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4381866689056338526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b4865087a51dc42a8866aaed8881fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8649ce6e16a74a8982673b4253a77866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalPropertiesManager: {fileID: 6764280239303350449}
+  _optionalProperties:
+  - {fileID: 4863943668855908486}
+  - {fileID: 1645827977904431722}
+  - {fileID: 8770465320824299404}
 --- !u!114 &6764280239303350449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,26 +382,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4381866689056338526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93e7dde2acd9a9488e3c95188be75b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 26249aae85772544ba5651c4dc990fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalProperties:
-  - {fileID: 4863943668855908486}
-  - {fileID: 1645827977904431722}
-  - {fileID: 8770465320824299404}
---- !u!114 &3453079426856474533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381866689056338526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662512661c28a5e4a9cf99a06b7d33a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objCont: {fileID: 0}
-  lineMaterial: {fileID: 0}
-  boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
-  generalMaterial: {fileID: 0}
+  _enableReporting: 1
+  _reportDelay: 0.1

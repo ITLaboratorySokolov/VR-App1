@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 
-// TODO path to config file
-
 /// <summary>
 /// Script managing the set up of the application
 /// - reads config file
@@ -35,27 +33,6 @@ public class SetUpScript : MonoBehaviour
     [Header("Controllers")]
     [SerializeField]
     RoomController roomController;
-
-    /// <summary>
-    /// Set up configuration1before application starts
-    /// - read from config min and max recorded depth, horizontal and vertical pan, zoom and server url
-    /// </summary>
-    private void Awake()
-    {
-        /*
-        // read config
-        pathToConfig = Directory.GetCurrentDirectory() + "\\config.txt";
-        Debug.Log(pathToConfig);
-
-        // Set culture -> doubles are written with decimal dot
-        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-        ReadConfig();
-
-        if (resetAction != null)
-            resetAction.action.performed += ResetSetUp;
-
-        */
-    }
 
     private void Start()
     {

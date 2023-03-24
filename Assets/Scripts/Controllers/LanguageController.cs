@@ -12,6 +12,8 @@ public class LanguageController : MonoBehaviour
     TMP_Text quitTXT;
     [SerializeField()]
     TMP_Text instructionsTXT;
+    [SerializeField()]
+    TMP_Text minigameTXT;
 
     [Header("Buttons")]
     [SerializeField()]
@@ -40,6 +42,7 @@ public class LanguageController : MonoBehaviour
     string deleteBoxesCZ = "Smazat krabice";
     string deleteBoxesEN = "Delete boxes";
     string resetCZ = "Reset krabic";
+
     string resetEN = "Reset boxes";
     string contCZ = "Ovl·d·nÌ";
     string contEN = "Controls";
@@ -51,8 +54,24 @@ public class LanguageController : MonoBehaviour
     string noCZ = "Ne";
     string noEN = "No";
 
-    string instructionsCZ = "Najdi vöech 9 schovan˝ch krabic!";
-    string instructionsEN = "Find all 9 hidden boxes!";
+    string instructionsCZ = "HLED¡ SE POMOC";
+    string instructionsEN = "HELP WANTED";
+
+    string wonCZ = "⁄KOL SPLNÃN";
+    string wonEN = "GOAL REACHED";
+
+    string plotCZ = @"P¯Ìstroj zajiöùujÌcÌ umÏlou gravitaci v dÛmu se rozbil!
+
+Automechanik za mÏstem tvrdÌ, ûe ho zvl·dne opravit, ale nÏkdo ukradl krabice s pot¯ebn˝mi souË·stami a rozh·zel je po celÈm mÏstÏ...
+
+Pom˘ûeö n·m najÌt 9 krabic se souË·stkami a doruËÌö je automechanikovi?
+";
+    string plotEN = @"The artificial gravity machine has broken in the dome!
+
+The automechanic behind town claims he can fix it, but somebody has stolen boxes with needed parts and scattered them through the town...
+
+Can you help us find 9 boxes with parts and deliver them to the automechanic?
+";
 
     string langCZ = "EN";
     string langEN = "CZ";
@@ -65,6 +84,16 @@ public class LanguageController : MonoBehaviour
         SetControls();
     }
 
+
+    internal string GetGoalText()
+    {
+        if (lang == "CZ")
+            return wonCZ;
+        else if (lang == "EN")
+            return wonEN;
+
+        return "!!!";
+    }
 
     private void SetControls()
     {
@@ -96,6 +125,10 @@ public class LanguageController : MonoBehaviour
             controlsBT.GetComponentInChildren<TMP_Text>().text = contCZ;
             yesBT.GetComponentInChildren<TMP_Text>().text = yesCZ;
             noBT.GetComponentInChildren<TMP_Text>().text = noCZ;
+
+            if (minigameTXT.text == wonEN)
+                minigameTXT.text = wonCZ;
+
         }
 
         else if (langCZ == "EN")
@@ -109,6 +142,9 @@ public class LanguageController : MonoBehaviour
             controlsBT.GetComponentInChildren<TMP_Text>().text = contEN;
             yesBT.GetComponentInChildren<TMP_Text>().text = yesEN;
             noBT.GetComponentInChildren<TMP_Text>().text = noEN;
+
+            if (minigameTXT.text == wonCZ)
+                minigameTXT.text = wonEN;
         }
     }
 

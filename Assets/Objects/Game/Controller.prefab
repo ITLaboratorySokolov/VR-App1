@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8746809028446410916}
   - component: {fileID: 5938852268806809526}
   - component: {fileID: 6722327122432547491}
-  - component: {fileID: 8779300461222464467}
+  - component: {fileID: 625425536234410}
   - component: {fileID: 3810300831217037921}
   - component: {fileID: 5131289915358565339}
+  - component: {fileID: 7411951727686728696}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -121,7 +122,7 @@ MonoBehaviour:
   lineMaterial: {fileID: 2100000, guid: be43344bf2e17d84280b0187eac0242a, type: 2}
   boxMaterial: {fileID: 2100000, guid: 7ba840b382e52e8448b03edb04165c42, type: 2}
   generalMaterial: {fileID: 2100000, guid: a56a8b4213c8e7a44ba8e98097309aa2, type: 2}
---- !u!114 &8779300461222464467
+--- !u!114 &625425536234410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,11 +131,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7089250788900731249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73abb31927646aa4e92d771f89a5f9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d529cf5af29b9f429883ff6105f41ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableReporting: 1
-  _reportDelay: 0.1
+  _supportedTexturePixelFormats:
+  - Name: RGB
+    Format: 3
+  - Name: RGBA
+    Format: 4
+  - Name: ARGB
+    Format: 5
+  _optionalPropertiesManager: {fileID: 3810300831217037921}
 --- !u!114 &3810300831217037921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,10 +151,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7089250788900731249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b4865087a51dc42a8866aaed8881fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8649ce6e16a74a8982673b4253a77866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalPropertiesManager: {fileID: 5131289915358565339}
+  _optionalProperties:
+  - {fileID: 7411951727686728696}
 --- !u!114 &5131289915358565339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +165,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7089250788900731249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93e7dde2acd9a9488e3c95188be75b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 26249aae85772544ba5651c4dc990fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionalProperties: []
+  _enableReporting: 1
+  _reportDelay: 0.1
+--- !u!114 &7411951727686728696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7089250788900731249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf6608d97a52e24788999bf62ac46dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

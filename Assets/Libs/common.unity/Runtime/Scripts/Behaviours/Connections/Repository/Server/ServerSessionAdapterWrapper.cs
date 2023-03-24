@@ -126,7 +126,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Serve
             UnityDispatcher.ExecuteOnUnityThread(() =>
             {
                 WorldObjectUpdated?.Invoke(objectName);
-               _worldObjectUpdated.Invoke(objectName);
+                _worldObjectUpdated.Invoke(objectName);
             });
         }
 
@@ -144,7 +144,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Serve
             UnityDispatcher.ExecuteOnUnityThread(() =>
             {
                 WorldObjectRemoved?.Invoke(objectName);
-               _worldObjectRemoved.Invoke(objectName);
+                _worldObjectRemoved.Invoke(objectName);
             });
         }
 
@@ -153,7 +153,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Serve
             UnityDispatcher.ExecuteOnUnityThread(() =>
             {
                 WorldObjectTransformed?.Invoke(transformDto);
-            _worldObjectTransformed.Invoke(transformDto);
+                _worldObjectTransformed.Invoke(transformDto);
             });
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
@@ -100,10 +99,10 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects
             {
                 Debug.Log("Add world object");
                 Debug.Log($"Name: {worldObjectName}");
-                Debug.Log(Thread.CurrentThread.ManagedThreadId + " " + Thread.CurrentThread.ManagedThreadId);
 
                 if (_worldObjectStorage.IsStored(worldObjectName))
                 {
+                    Debug.Log("World object already exists locally");
                     return;
                 }
                 

@@ -146,6 +146,33 @@ public class RigController : MonoBehaviour
         Debug.Log("Spawned");
     }
 
+    /// <summary>
+    /// Remove rig objects from server
+    /// </summary>
+    public async Task RemoveRigFromServer()
+    {
+        bool res = await RemoveRigComponent(handLNM);
+        res = await RemoveRigComponent(handRNM);
+        res = await RemoveRigComponent(headNM);
+
+        Debug.Log("Removed from server");
+    }
+
+    /// <summary>
+    /// Remove rig component from server
+    /// </summary>
+    /// <param name="name"> Name of the component </param>
+    private async Task<bool> RemoveRigComponent(string name)
+    {
+        bool val = await objCont.ContainsObject(name);
+        if (val)
+        {
+            await objCont.RemoveObject(name);
+            return true;
+        }
+        return false;
+    }
+
     private async Task<bool> SendRigComponent(GameObject rigComponent)
     {
         // send/update to server

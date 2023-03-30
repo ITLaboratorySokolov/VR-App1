@@ -22,7 +22,7 @@ public class ObjectController : MonoBehaviour
         return woManager.LoadServerContentAsync();
     }
 
-    public async void ObjectRemoved(string name)
+    public async Task RemoveObject(string name)
     {
         Debug.Log("Remove");
         await woManager.RemoveObjectAsync(name);
@@ -53,13 +53,6 @@ public class ObjectController : MonoBehaviour
     {
         await woManager.RemoveObjectAsync(name);
         Destroy(obj);
-
-        Debug.Log("Destroyed " + name);
-    }
-
-    internal async Task DestroyObject(string name)
-    {
-        await woManager.RemoveObjectAsync(name);
 
         Debug.Log("Destroyed " + name);
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using ZCU.TechnologyLab.Common.Connections.Client.Session;
 
 public class LanguageController : MonoBehaviour
 {
@@ -64,13 +65,13 @@ public class LanguageController : MonoBehaviour
 
 Automechanik za mìstem tvrdí, že ho zvládne opravit, ale nìkdo ukradl krabice s potøebnými souèástami a rozházel je po celém mìstì...
 
-Pomùžeš nám najít 9 krabic se souèástkami a doruèíš je automechanikovi?
+Pomùžeš nám najít 6 krabic se souèástkami a doruèíš je automechanikovi?
 ";
     string plotEN = @"The artificial gravity machine has broken in the dome!
 
 The automechanic behind town claims he can fix it, but somebody has stolen boxes with needed parts and scattered them through the town...
 
-Can you help us find 9 boxes with parts and deliver them to the automechanic?
+Can you help us find 6 boxes with parts and deliver them to the automechanic?
 ";
 
     string langCZ = "EN";
@@ -160,5 +161,24 @@ Can you help us find 9 boxes with parts and deliver them to the automechanic?
 
         SetLabels();
         SetControls();
+    }
+
+    internal string GetSessionStateString(SessionState state)
+    {
+        if (lang == "CZ")
+        {
+            if (state == SessionState.Closed)
+                return "Odpojeno";
+            if (state == SessionState.Connected)
+                return "Pøipojeno";
+            if (state == SessionState.Reconnecting)
+                return "Pøipojování";
+            if (state == SessionState.Closing)
+                return "Odpojování";
+            if (state == SessionState.Starting)
+                return "Zaèíná";
+        }
+
+        return state.ToString();
     }
 }

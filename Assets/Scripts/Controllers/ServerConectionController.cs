@@ -227,6 +227,25 @@ public class ServerConectionController : MonoBehaviour
         actionEnd.Invoke();
     }
 
+    internal void OnExit()
+    {
+        StartCoroutine(ExitCorout());
+    }
+
+    private IEnumerator ExitCorout()
+    {
+        yield return StartCoroutine(RemoveRigCorout());
+        Application.Quit();
+    }
+
+    IEnumerator RemoveRigCorout()
+    {
+        var tr = rigSpawner.RemoveRigFromServer();
+
+        while (!tr.IsCompleted)
+            yield return null;
+    }
+
     public void RespawnBoxes()
     {
         Debug.Log("Respawning");

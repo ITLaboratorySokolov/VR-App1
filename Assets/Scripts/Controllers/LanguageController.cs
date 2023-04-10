@@ -1,11 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using ZCU.TechnologyLab.Common.Connections.Client.Session;
 
+/// <summary>
+/// Script used to switch between languages
+/// - application supports czech and english
+/// </summary>
 public class LanguageController : MonoBehaviour
 {
     [Header("Text")]
@@ -15,6 +16,8 @@ public class LanguageController : MonoBehaviour
     TMP_Text instructionsTXT;
     [SerializeField()]
     TMP_Text minigameTXT;
+    [SerializeField()]
+    TMP_Text storyTXT;
 
     [Header("Buttons")]
     [SerializeField()]
@@ -85,7 +88,10 @@ Can you help us find 6 boxes with parts and deliver them to the automechanic?
         SetControls();
     }
 
-
+    /// <summary>
+    /// Get goal reached text
+    /// </summary>
+    /// <returns> Text </returns>
     internal string GetGoalText()
     {
         if (lang == "CZ")
@@ -96,6 +102,9 @@ Can you help us find 6 boxes with parts and deliver them to the automechanic?
         return "!!!";
     }
 
+    /// <summary>
+    /// Set controls panel
+    /// </summary>
     private void SetControls()
     {
         if (lang == "CZ")
@@ -119,6 +128,7 @@ Can you help us find 6 boxes with parts and deliver them to the automechanic?
         {
             quitTXT.text = quitCZ;
             instructionsTXT.text = instructionsCZ;
+            storyTXT.text = plotCZ;
 
             deleteBoxesBT.GetComponentInChildren<TMP_Text>().text = deleteBoxesCZ;
             refreshBoxesBT.GetComponentInChildren<TMP_Text>().text = resetCZ;
@@ -136,6 +146,7 @@ Can you help us find 6 boxes with parts and deliver them to the automechanic?
         {
             quitTXT.text = quitEN;
             instructionsTXT.text = instructionsEN;
+            storyTXT.text = plotEN;
 
             deleteBoxesBT.GetComponentInChildren<TMP_Text>().text = deleteBoxesEN;
             refreshBoxesBT.GetComponentInChildren<TMP_Text>().text = resetEN;
@@ -163,6 +174,11 @@ Can you help us find 6 boxes with parts and deliver them to the automechanic?
         SetControls();
     }
 
+    /// <summary>
+    /// Translate session state to string that is displayed
+    /// </summary>
+    /// <param name="state"> Session state </param>
+    /// <returns> String to display </returns>
     internal string GetSessionStateString(SessionState state)
     {
         if (lang == "CZ")

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -8,16 +5,18 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 
+/// <summary>
+/// Script used to controll the intro screen and set configuration of the application
+/// </summary>
 public class ConfigController : MonoBehaviour
 {
-    [SerializeField]
-    ConfigLanguageController langController;
-
+    [Header("Config")]
     string pathToConfig;
 
+    [SerializeField]
+    ConfigLanguageController langController;
     [SerializeField]
     string nextScene;
 
@@ -64,6 +63,9 @@ public class ConfigController : MonoBehaviour
         DisplayValues();
     }
 
+    /// <summary>
+    /// Display values on screen
+    /// </summary>
     private void DisplayValues()
     {
         urlTXT.text = serverUrl.Value;
@@ -76,6 +78,9 @@ public class ConfigController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// On Play button clicked
+    /// </summary>
     public void Play()
     {
         serverUrl.Value = urlTXT.text.Trim();
@@ -84,11 +89,13 @@ public class ConfigController : MonoBehaviour
         urlTXT.text = serverUrl.Value;
         nameTXT.text = clientName.Value;
 
+        // if no client name set
         bool noClient = false;
         if (clientName.Value == null || clientName.Value.Length == 0)
             noClient = true;
         errorNM.SetActive(noClient);
 
+        // if no server url set
         bool noUrl = false;
         if (serverUrl.Value == null || serverUrl.Value.Length == 0)
             noUrl = true;
@@ -97,18 +104,30 @@ public class ConfigController : MonoBehaviour
         if (noUrl || noClient)
             return;
 
-        if (roomSizeXTXT != null)
+        // if room size set through main menu
+        if (roomSizeXTXT != null && roomSizeZTXT != null)
         {
             float wX = 0;
             float wZ = 0;
-            float.TryParse(roomSizeXTXT.text.Trim(), out wX);
-            float.TryParse(roomSizeXTXT.text.Trim(), out wZ);
+
+            string sizeX = roomSizeXTXT.text.Trim();
+            string sizeZ = roomSizeZTXT.text.Trim();
+
+            // no size set
+            if (sizeX.Length == 0 || sizeZ.Length == 0)
+                return;
+
+            float.TryParse(sizeX, out wX);
+            float.TryParse(sizeZ, out wZ);
             roomSizeVal.Value = new Vector2(wX, wZ);
         }
 
         SceneManager.LoadScene(nextScene);
     }
 
+    /// <summary>
+    /// Read config file
+    /// </summary>
     private void ReadConfig()
     {
         if (File.Exists(pathToConfig))
@@ -142,6 +161,10 @@ public class ConfigController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggle panel displaying app controls
+    /// </summary>
+    /// <param name="val"> True for panel on, false for panel off </param>
     public void ToggleControlsPanel(bool val)
     {
         controlsPanel.SetActive(val);
@@ -156,6 +179,9 @@ public class ConfigController : MonoBehaviour
         nameTXT.text = Regex.Replace(nameTXT.text, "[^a-zA-Z0-9_-]+", "", RegexOptions.Compiled);
     }
 
+    /// <summary>
+    /// On Exit button clicked
+    /// </summary>
     public void OnExit()
     {
         Application.Quit();

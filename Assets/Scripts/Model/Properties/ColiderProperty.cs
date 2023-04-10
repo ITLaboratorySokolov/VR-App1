@@ -1,14 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ZCU.TechnologyLab.Common.Serialization.Properties;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Serializers;
 
+/// <summary>
+/// Custom property processing the size and position of colider of the object
+/// </summary>
 public class ColiderProperty : OptionalProperty
 {
     /// <summary> Property name </summary>
     string propertyName = "ColiderSize";
 
+    [Header("Colliders")]
     [SerializeField()]
     BoxCollider boxCol;
     [SerializeField()]
@@ -17,11 +20,6 @@ public class ColiderProperty : OptionalProperty
     MeshCollider meshCol;
 
     ArraySerializer<float> floatSerializer;
-
-    public void Start()
-    {
-        floatSerializer = new ArraySerializer<float>(propertyName, sizeof(float));
-    }
 
     /// <summary>
     /// Getter for property name

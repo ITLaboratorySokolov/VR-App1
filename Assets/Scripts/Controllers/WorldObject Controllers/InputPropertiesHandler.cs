@@ -1,43 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
+/// <summary>
+/// Script used to set properties of incoming game object from the server
+/// - properties are based on the name of the game object
+/// </summary>
 public class InputPropertiesHandler : MonoBehaviour
 {
-    float timeUntilUpdate;
-
+    /// <summary> Object controller </summary>
     [SerializeField]
     public ObjectController objCont;
 
-    Vector3 newPos;
-    Vector3 lastPos;
-
-    Quaternion newRot;
-    Quaternion lastRot;
-
+    [Header("Materials")]
+    /// <summary> Line material </summary>
     [SerializeField]
     Material lineMaterial;
+    /// <summary> Box material </summary>
     [SerializeField]
     Material boxMaterial;
+    /// <summary> General material </summary>
     [SerializeField]
     Material generalMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeUntilUpdate = 0;
-
         MeshRenderer mr = GetComponent<MeshRenderer>();
         Color c = mr.material.GetColor("_Color"); ;
         Texture t = mr.material.GetTexture("_MainTex");
 
         tag = "worldObject";
 
+        // Set material for line
         if (name.StartsWith("Line"))
         {
             mr.material = lineMaterial;
@@ -49,9 +44,8 @@ public class InputPropertiesHandler : MonoBehaviour
             GetComponent<Rigidbody>().isKinematic = true;
             int layerNum = LayerMask.NameToLayer("DrawnLine");
             gameObject.layer = layerNum;
-
-
         }
+        // Set material for box
         else if (name.StartsWith("CardboardBox"))
         {
             mr.material = boxMaterial;
@@ -68,6 +62,7 @@ public class InputPropertiesHandler : MonoBehaviour
             //    rb.isKinematic = false;
             // }
         }
+        // Set head and hands
         else if (name.StartsWith("Head") || name.StartsWith("Hand")) //HandL or LHand??
         {
             mr.material = generalMaterial;
@@ -75,11 +70,11 @@ public class InputPropertiesHandler : MonoBehaviour
             if (t != null)
                 mr.material.SetTexture("_MainTex", t);
 
-            // odebrat grabbable??
+            // remove grab interactable
             if (GetComponent<XRGrabInteractable>() != null)
                 GetComponent<XRGrabInteractable>().enabled = false;
             
-            // bez collideru?
+            // set colliders
             BoxCollider bc = GetComponent<BoxCollider>();
             MeshCollider mc = GetComponent<MeshCollider>();
             SphereCollider sc = GetComponent<SphereCollider>();
@@ -109,6 +104,8 @@ public class InputPropertiesHandler : MonoBehaviour
             }
 
         }
+
+        // Set material for general object
         else
         {
             mr.material = generalMaterial;
@@ -116,21 +113,21 @@ public class InputPropertiesHandler : MonoBehaviour
             if (t != null)
                 mr.material.SetTexture("_MainTex", t);
 
-            // is it a bitmap? or no collider active?
             BitmapPropertiesManager bpm = GetComponent<BitmapPropertiesManager>();
             BoxCollider bc = GetComponent<BoxCollider>();
             MeshCollider mc = GetComponent<MeshCollider>();
             SphereCollider sc = GetComponent<SphereCollider>();
 
+            // if there is no collider or it is a bitmap set a box collider
             if (bpm != null || (!bc.enabled && !mc.enabled && !sc.enabled) || bc.size == new Vector3() )
             {
-                Debug.Log("Setting colider for " + name + " in " + Thread.CurrentThread.ManagedThreadId + " " + Thread.CurrentThread.ManagedThreadId);
-
                 Mesh m = GetComponent<MeshFilter>().mesh;
                 BoxCollider col = GetComponent<BoxCollider>();
                 col.enabled = true;
 
                 Debug.Log("Coliders set " + gameObject.name);
+
+                Debug.Log("Set bounds " + m.bounds.size);
 
                 col.center = m.bounds.center;
                 col.size= m.bounds.size;

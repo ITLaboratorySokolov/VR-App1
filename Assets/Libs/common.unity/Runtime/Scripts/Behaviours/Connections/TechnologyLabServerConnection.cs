@@ -27,7 +27,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections
         [Tooltip("When making changes to world objects, should the changes be reported back from a server to a client that caused them?")]
         [FormerlySerializedAs("reportChangesBackToSourceClient")]
         private bool _reportChangesBackToSourceClient;
-        
+
         private void OnValidate()
         {
             Assert.IsNotNull(_restDataClient, "Rest Data Client was null.");
@@ -55,7 +55,8 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections
 
         private void SetConnectionIdToHeader()
         {
-            _restDataClient.AddHeader(ConnectionIdHeaderName, _signalRSession.ConnectionId);
+            Debug.Log("Connection id:" + _signalRSession.ConnectionId);
+            _restDataClient.SetHeader(ConnectionIdHeaderName, _signalRSession.ConnectionId);
         }
     }
 }

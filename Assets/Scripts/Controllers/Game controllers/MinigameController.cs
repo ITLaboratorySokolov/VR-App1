@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Script used to control the active minigame - collecting boxes in the scene and depositing
+/// them into a dedicated area
+/// </summary>
 public class MinigameController : MonoBehaviour
 {
     [SerializeField()]
     LanguageController langCont;
     
+    /// <summary> Number of boxes that should be collected </summary>
     [SerializeField()]
     int boxesGoal;
-
+    /// <summary> Number of boxes currently collected </summary>
     int boxesIn;
 
+    /// <summary> Displayed text </summary>
     [SerializeField()]
     TMP_Text dispText;
 
@@ -23,12 +27,9 @@ public class MinigameController : MonoBehaviour
         boxesIn = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Reset the counter of boxes in dedicated area
+    /// </summary>
     public void ResetCount()
     {
         boxesIn = 0;
@@ -36,6 +37,10 @@ public class MinigameController : MonoBehaviour
         dispText.color = Color.white;
     }
 
+    /// <summary>
+    /// If a box enters the dedicated area, add to the counter
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.StartsWith("CardboardBox_"))
@@ -44,6 +49,7 @@ public class MinigameController : MonoBehaviour
 
             dispText.text = boxesIn + " / " + boxesGoal;
 
+            // if goal met
             if (boxesGoal <= boxesIn)
             {
                 dispText.text = langCont.GetGoalText();
@@ -52,6 +58,10 @@ public class MinigameController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// If a box exits dedicated area, decrease counter
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name.StartsWith("CardboardBox_"))

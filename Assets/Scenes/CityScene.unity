@@ -3168,6 +3168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 0, y: 0, z: -1}
+  playerTag: 
 --- !u!54 &451848925
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5041,6 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: -1, y: 0, z: 0}
+  playerTag: 
 --- !u!65 &633009264
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5117,6 +5119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 1, y: 0, z: 0}
+  playerTag: 
 --- !u!65 &634251131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7224,6 +7227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 0, y: 0, z: 1}
+  playerTag: 
 --- !u!65 &825244923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9603,12 +9607,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eddf9d3c15cc4740a9cdf9eb3363f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: {fileID: 11400000, guid: 4a0031afb9d02a042a213119900c5689, type: 2}
   serverUrl: {fileID: 11400000, guid: 95b0b66dae6523e49bd25b768ba71661, type: 2}
   clientName: {fileID: 11400000, guid: 572927c6c6b30e84997bec6d72debab0, type: 2}
   serverConnection: {fileID: 7695670930029683657}
   resetAction: {fileID: 0}
   roomController: {fileID: 3256917732439726011}
+  roomSize: {fileID: 11400000, guid: 4a0031afb9d02a042a213119900c5689, type: 2}
 --- !u!4 &1211380236
 Transform:
   m_ObjectHideFlags: 0
@@ -12187,6 +12191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 1, y: 0, z: 0}
+  playerTag: 
 --- !u!65 &1669802225
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13288,6 +13293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: -1, y: 0, z: 0}
+  playerTag: 
 --- !u!65 &1938884359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13364,6 +13370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 0, y: 0, z: -1}
+  playerTag: 
 --- !u!65 &1943965718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15334,6 +15341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepCoords: {x: 0, y: 0, z: 1}
+  playerTag: 
 --- !u!65 &2108150467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23669,6 +23677,7 @@ MonoBehaviour:
   quitTXT: {fileID: 244262591973378703}
   instructionsTXT: {fileID: 5558513746003064541}
   minigameTXT: {fileID: 1465827667}
+  storyTXT: {fileID: 1569913522}
   deleteBoxesBT: {fileID: 7750715329407788360}
   refreshBoxesBT: {fileID: 1217321154635163215}
   yesBT: {fileID: 6473298818605926670}

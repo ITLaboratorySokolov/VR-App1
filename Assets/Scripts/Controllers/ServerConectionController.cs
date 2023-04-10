@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
 using ZCU.TechnologyLab.Common.Connections.Client.Session;
 using ZCU.TechnologyLab.Common.Serialization.Mesh;
-using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Client.Session;
-using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
+/// <summary>
+/// Script used to controll connection to server
+/// - handles connecting, disconnecting, reconnecting
+/// </summary>
 public class ServerConectionController : MonoBehaviour
 {
     [Header("Controllers")]
@@ -24,7 +25,6 @@ public class ServerConectionController : MonoBehaviour
     MinigameController minigame;
 
     [Header("Serializers")]
-    /// <summary> Mesh serializer </summary>
     RawMeshSerializer serializer;
 
     [Header("Connection")]
@@ -33,14 +33,12 @@ public class ServerConectionController : MonoBehaviour
     SignalRSessionWrapper session;
     /// <summary> Synchronization call has been finished </summary>
     internal bool syncCallDone;
-    /// <summary> Highest number of line on server </summary>
-    int serverLines;
 
     [Header("Actions")]
     /// <summary> Action performed upon Start </summary>
     [SerializeField]
     UnityEvent actionStart = new UnityEvent();
-    /// <summary Action performed upon Destroy </summary>
+    /// <summary> Action performed upon Destroy </summary>
     [SerializeField]
     UnityEvent actionEnd = new UnityEvent();
 
@@ -61,30 +59,45 @@ public class ServerConectionController : MonoBehaviour
         StartCoroutine(RestartConnection());
     }
 
+    /// <summary>
+    /// On disconnected from server
+    /// - clear local objects
+    /// - start reconnect procedure
+    /// </summary>
     public void OnDisconnected()
     {
         objCont.ObjectsClear();
+        rigSpawner.SpawnRig();
+
         Debug.Log("Disconnected - Launching restart procedure");
+
         StartCoroutine(RestartConnection());
     }
 
+    /// <summary>
+    /// On reconnecting to server
+    /// </summary>
     public void OnReconnecting()
     {
+        syncCallDone = false;
+
         Debug.Log("Connection temporarily lost");
     }
 
+    /// <summary>
+    /// On reconnected to server
+    /// </summary>
     public void OnReconnected()
     {
-        // bxSpawner.SpawnTestBox();
-
         objCont.ObjectsClear();
+
         StartCoroutine(SyncCall());
         SpawnLocalObjects();
     }
 
     /// <summary>
     /// Restarting procedure
-    /// - creates a minimum 5s delay
+    /// - creates a 5s delay betweem attempts
     /// </summary>
     /// <returns></returns>
     IEnumerator RestartConnection()
@@ -138,13 +151,11 @@ public class ServerConectionController : MonoBehaviour
     {
         try
         {
-            // TODO update local boxes with positions from server?
             // Get all objects
             IEnumerable<GameObject> gmobjs = await objCont.ObjectRecieve();
 
             Debug.Log("Got objects");
 
-            // If object is recognized as a line
             foreach (GameObject obj in gmobjs)
             {
                 string n = obj.name;
@@ -169,12 +180,18 @@ public class ServerConectionController : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Spawn local objects
+    /// </summary>
     public void SpawnLocalObjects()
     {
         StartCoroutine(SpawnBoxesCorout());
         StartCoroutine(SpawnRigCorout());
     }
 
+    /// <summary>
+    /// Spawn local boxes
+    /// </summary>
     IEnumerator SpawnBoxesCorout()
     {
         yield return new WaitUntil(() => syncCallDone);
@@ -187,6 +204,9 @@ public class ServerConectionController : MonoBehaviour
         Debug.Log("Spawned local boxes");
     }
 
+    /// <summary>
+    /// Spawn rig and send it to server
+    /// </summary>
     IEnumerator SpawnRigCorout()
     {
         yield return new WaitUntil(() => syncCallDone);
@@ -227,17 +247,27 @@ public class ServerConectionController : MonoBehaviour
         actionEnd.Invoke();
     }
 
+    /// <summary>
+    /// On application exit
+    /// </summary>
     internal void OnExit()
     {
         StartCoroutine(ExitCorout());
     }
 
+    /// <summary>
+    /// Exit coroutine
+    /// - remove rig from server and exit application
+    /// </summary>
     private IEnumerator ExitCorout()
     {
         yield return StartCoroutine(RemoveRigCorout());
         Application.Quit();
     }
 
+    /// <summary>
+    /// Remove rig from server
+    /// </summary>
     IEnumerator RemoveRigCorout()
     {
         var tr = rigSpawner.RemoveRigFromServer();
@@ -246,6 +276,11 @@ public class ServerConectionController : MonoBehaviour
             yield return null;
     }
 
+    /// <summary>
+    /// Reset local boxes
+    /// - delete all boxes
+    /// - spawn them again at default locations
+    /// </summary>
     public void RespawnBoxes()
     {
         Debug.Log("Respawning");
@@ -253,13 +288,17 @@ public class ServerConectionController : MonoBehaviour
         if (session.State != SessionState.Connected)
             return;
 
+        syncCallDone = false;
         minigame.ResetCount();
         StartCoroutine(DeleteBoxesFromServer());
         StartCoroutine(SpawnBoxesCorout());
 
         Debug.Log("Reset local boxes");
     }
-
+    
+    /// <summary>
+    /// Delete local boxes
+    /// </summary>
     public void ClearBoxes()
     {
         Debug.Log("Clearing");
@@ -271,6 +310,9 @@ public class ServerConectionController : MonoBehaviour
         StartCoroutine(DeleteBoxesFromServer());
     }
 
+    /// <summary>
+    /// Delete boxes from server
+    /// </summary>
     private IEnumerator DeleteBoxesFromServer()
     {
         Task t = bxSpawner.DeleteBoxesFromServer();
@@ -279,6 +321,7 @@ public class ServerConectionController : MonoBehaviour
             yield return null;
 
         Debug.Log("Deleted boxes from server");
+        syncCallDone = true;
     }
 
 
@@ -295,6 +338,11 @@ public class ServerConectionController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Destroy object coroutine
+    /// </summary>
+    /// <param name="name"> Name of object </param>
+    /// <param name="obj"> Game object </param>
     IEnumerator DestroyObjectCoroutine(string name, GameObject obj)
     {
         var t = objCont.DestroyObject(name, obj);

@@ -14,8 +14,6 @@ public class SetUpScript : MonoBehaviour
     [Header("Config")]
     /// <summary> Path to config file </summary>
     string pathToConfig;
-    [SerializeField]
-    Vec2FVariable roomSize;
 
     [Header("Server connection")]
     /// <summary> Server url </summary>
@@ -33,16 +31,31 @@ public class SetUpScript : MonoBehaviour
     [Header("Controllers")]
     [SerializeField]
     RoomController roomController;
+    [SerializeField]
+    Vec2FVariable roomSize;
 
+    /// <summary>
+    /// Set up configuration before application starts
+    /// - set room size
+    /// </summary>
     private void Start()
     {
         float wX = roomSize.Value.x;
         float wZ = roomSize.Value.y;
 
+        // Set culture -> doubles are written with decimal dot
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
         if (wX != 0 && wZ != 0)
             roomController.SetRoomSize(wX, wZ);
+
+        if (resetAction != null)
+            resetAction.action.performed += ResetSetUp;
     }
 
+    /// <summary>
+    /// Read config file
+    /// </summary>
     private void ReadConfig()
     {
         if (File.Exists(pathToConfig))
@@ -76,6 +89,10 @@ public class SetUpScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reset configuration
+    /// </summary>
+    /// <param name="ctx"></param>
     public void ResetSetUp(InputAction.CallbackContext ctx)
     {
         Debug.Log("Reseting configuration!");

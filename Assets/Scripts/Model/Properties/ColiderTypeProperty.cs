@@ -13,6 +13,7 @@ public class ColiderTypeProperty : OptionalProperty
     /// <summary> Property name </summary>
     string propertyName = "ColiderType";
 
+    [Header("Colliders")]
     [SerializeField()]
     BoxCollider boxCol;
     [SerializeField()]

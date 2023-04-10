@@ -1,36 +1,43 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 
+/// <summary>
+/// Script used to control spawning of boxes
+/// </summary>
 public class BoxSpawner : MonoBehaviour
 {
+    /// <summary> Prefabs of boxes to spawn </summary>
     [SerializeField]
     GameObject[] boxes;
+    /// <summary> Where should be boxes spawned </summary>
     [SerializeField]
     GameObject[] boxPositions;
+    /// <summary> Object controller </summary>
     [SerializeField]
     ObjectController objCont;
+    /// <summary> Parent of spawned boxes </summary>
     [SerializeField]
     GameObject serverObjectParent;
+    /// <summary> Tag of spawned boxes </summary>
     [SerializeField]
     StringVariable serverObjectTag;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+    /// <summary>
+    /// Spawn one test box
+    /// [DEBUG METHOD]
+    /// </summary>
     public void SpawnTestBox()
     {
         StartCoroutine(TestCorout());
     }
 
+    /// <summary>
+    /// Spawn test box coroutine
+    /// [DEBUG METHOD]
+    /// </summary>
     public IEnumerator TestCorout()
     {
         var t = SpawnTestBoxT();
@@ -41,6 +48,10 @@ public class BoxSpawner : MonoBehaviour
         Debug.Log("Done spawning test box");
     }
 
+    /// <summary>
+    /// Task to spawn test box
+    /// [DEBUG METHOD]
+    /// </summary>
     public async Task SpawnTestBoxT()
     {
         GameObject o = Instantiate(boxes[0], boxPositions[0].transform.position, boxPositions[0].transform.rotation, this.transform);
@@ -63,6 +74,9 @@ public class BoxSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn boxes on specified locations in scene
+    /// </summary>
     public async Task SpawnInBoxes()
     {
         for (int i = 0; i < boxPositions.Length; i++)
@@ -93,28 +107,23 @@ public class BoxSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Delete boxes from server and local space
+    /// </summary>
+    /// <returns></returns>
     internal async Task DeleteBoxesFromServer()
     {
         List<GameObject> gol = new List<GameObject>();
 
-        // TODO this actively goes through the whole scene...
-        // var allGOs = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        // find all object with specified tag
         var allGOs = GameObject.FindGameObjectsWithTag(serverObjectTag.Value);
-
-        foreach (GameObject go in allGOs) // Transform child in serverObjectParent.transform
+        foreach (GameObject go in allGOs) 
         {
             if (go.name.StartsWith("CardboardBox_" + objCont.clientName.Value))
                 gol.Add(go);
         }
 
         Debug.Log(gol.Count);
-
         await objCont.RemoveObjects(gol);
     }
 }

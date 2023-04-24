@@ -66,7 +66,7 @@ public class LanguageController : MonoBehaviour
 
     string plotCZ = @"Pøístroj zajišující umìlou gravitaci v dómu se rozbil!
 
-Automechanik za mìstem tvrdí, e ho zvládne opravit, ale nìkdo ukradl krabice s potøebnımi souèástami a rozházel je po celém mìstì...
+Automechanik za mìstem tvrdí, e ho zvládne opravit, ale nìkdo ukradl krabice s potøebnımi souèástkami a rozházel je po celém mìstì...
 
 Pomùeš nám najít 6 krabic se souèástkami a doruèíš je automechanikovi?
 ";

@@ -162,7 +162,7 @@ public class ServerConectionController : MonoBehaviour
 
                 Debug.Log(n);
 
-                var uph = obj.GetComponent<InputPropertiesHandler>();
+                var uph = obj.GetComponent<ObjectPropertiesHandler>();
                 uph.objCont = objCont;
                 uph.StartPosition();
                 Debug.Log("Recieved " + n);

@@ -113,7 +113,7 @@ public class ObjectController : MonoBehaviour
     public void AddedNewObjectAtRuntime(GameObject o)
     {
         o.tag = serverObjectTag.Value;
-        var iph = o.GetComponent<InputPropertiesHandler>();
+        var iph = o.GetComponent<ObjectPropertiesHandler>();
         if (iph != null)
             iph.objCont = this;
     }   

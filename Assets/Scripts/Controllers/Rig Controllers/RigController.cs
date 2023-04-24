@@ -125,7 +125,7 @@ public class RigController : MonoBehaviour
     private GameObject SpawnRigComponent(GameObject prefab, Transform tfParent, string name)
     {
         GameObject o = Instantiate(prefab, tfParent.position, tfParent.rotation, tfParent);
-        var uph = o.GetComponent<InputPropertiesHandler>();
+        var uph = o.GetComponent<ObjectPropertiesHandler>();
         uph.objCont = objCont;
         o.name = name;
 

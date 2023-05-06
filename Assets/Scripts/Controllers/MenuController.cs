@@ -13,6 +13,8 @@ public class MenuController : MonoBehaviour
     GameObject exitPanel;
     [SerializeField]
     GameObject controlPanel;
+    [SerializeField]
+    GameObject savePanel;
 
     [Header("Scripts")]
     [SerializeField]
@@ -56,6 +58,16 @@ public class MenuController : MonoBehaviour
     public void ToggleControlsPanel(bool val)
     {
         controlPanel.SetActive(val);
+    }
+
+    /// <summary>
+    /// Toggle save scenes panel
+    /// </summary>
+    /// <param name="val"> True if controls panel on, false if off </param>
+    public void ToggleSavePanel(bool val)
+    {
+        savePanel.SetActive(val);
+
     }
 
     /// <summary>

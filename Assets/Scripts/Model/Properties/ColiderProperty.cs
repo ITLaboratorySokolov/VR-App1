@@ -92,7 +92,7 @@ public class ColiderProperty : OptionalProperty
         if (meshCol.enabled)
             return new byte[0];
 
-        byte[] serialized = null;
+        byte[] serialized = new byte[0];
         floatSerializer = new ArraySerializer<float>(propertyName, sizeof(float));
 
         if (boxCol.enabled)

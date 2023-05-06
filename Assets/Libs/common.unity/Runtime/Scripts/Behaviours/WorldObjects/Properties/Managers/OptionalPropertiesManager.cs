@@ -43,6 +43,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Mana
                 }
                 catch (Exception ex)
                 {
+                    Debug.LogError(optionalProperty.GetType());
                     Debug.LogError($"Unable to process optional property: {ex.Message}");
                 }
             }

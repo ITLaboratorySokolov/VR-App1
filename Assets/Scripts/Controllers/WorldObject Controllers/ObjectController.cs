@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.AssetVariables;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Connections.Repository.Server;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.Utility;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects;
-using ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Storage;
+using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Storage;
 
 /// <summary>
 /// Script used for sending, deleting or updating objects on server
@@ -15,13 +16,41 @@ public class ObjectController : MonoBehaviour
     [SerializeField]
     WorldObjectManager woManager;
     [SerializeField]
-    WorldObjectMemoryStorage woMemoryStorage;
+    WorldObjectMemoryStorageWrapper woMemoryStorage;
     [SerializeField]
     ServerDataAdapterWrapper dataAdapter;
     [SerializeField]
     public StringVariable clientName;
     [SerializeField]
     public StringVariable serverObjectTag;
+
+    /// <summary>
+    /// Get all server objects currently stored in scene
+    /// </summary>
+    /// <returns> Game objects </returns>
+    public IEnumerable<GameObject> GetStoredObjects()
+    {
+        if (woMemoryStorage == null)
+            Debug.LogError("wtf");
+
+        return woMemoryStorage.GetAll();
+    }
+
+    /// <summary>
+    /// Clear all objects from server
+    /// </summary>
+    /// <returns> True if executed successfully </returns>
+    public async Task<bool> ClearObjectsFromServer()
+    {
+        IEnumerable<GameObject> objs = GetStoredObjects();
+        List<GameObject> objsList = new List<GameObject>();
+        foreach (GameObject o in objs)
+            if (!(o.name.StartsWith("HandL_") || o.name.StartsWith("HandR_") || o.name.StartsWith("Head_")))
+                objsList.Add(o);
+        await RemoveObjects(objsList);
+
+        return true;
+    }
 
     /// <summary>
     /// Load server content
@@ -49,7 +78,10 @@ public class ObjectController : MonoBehaviour
     public async Task RemoveObjects(List<GameObject> objs)
     {
         for (int i = 0; i < objs.Count; i++)
+        {
+            Debug.Log(objs[i].name);
             await DestroyObject(objs[i].name, objs[i]);
+        }
     }
 
     /// <summary>

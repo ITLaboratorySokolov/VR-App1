@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using ZCU.TechnologyLab.Common.Entities.DataTransferObjects;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
@@ -85,34 +86,51 @@ public class SceneSaveController : MonoBehaviour
             // instantiate object
             foreach (WorldObjectDto o in objs)
             {
-                if (o.Type == "mesh")
+                // test if object exists on server
+                Task<bool> tC = objCont.ContainsObject(o.Name);
+                while (!tC.IsCompleted)
+                    yield return null;
+
+                // add to server if not there
+                if (!tC.Result)
                 {
-                    GameObject inst = Instantiate(meshPrefab);
-                    inst.name = o.Name;
-                    inst.transform.position = VectorDTOToVector3(o.Position);
-                    inst.transform.eulerAngles = VectorDTOToVector3(o.Rotation);
-                    inst.transform.localScale = VectorDTOToVector3(o.Scale);
-                    inst.GetComponent<MeshPropertiesManager>().SetProperties(o.Properties);
+                    GameObject inst = null;
+                    // instantiate correct prefab and fill w/ data from world object dto
+                    if (o.Type == "mesh")
+                    {
+                        inst = Instantiate(meshPrefab);
+                        inst.name = o.Name;
+                        inst.transform.position = VectorDTOToVector3(o.Position);
+                        inst.transform.eulerAngles = VectorDTOToVector3(o.Rotation);
+                        inst.transform.localScale = VectorDTOToVector3(o.Scale);
+                        inst.GetComponent<MeshPropertiesManager>().SetProperties(o.Properties);
+
+                    }
+                    else if (o.Type == "bitmap")
+                    {
+                        inst = Instantiate(bitmapPrefab);
+                        inst.name = o.Name;
+                        inst.transform.position = VectorDTOToVector3(o.Position);
+                        inst.transform.eulerAngles = VectorDTOToVector3(o.Rotation);
+                        inst.transform.localScale = VectorDTOToVector3(o.Scale);
+                        inst.GetComponent<BitmapPropertiesManager>().SetProperties(o.Properties);
+                    }
 
                     Task t2 = objCont.AddObjectAsync(inst);
                     while (!t2.IsCompleted)
                         yield return null;
                 }
-                else if (o.Type == "bitmap")
+                // move the one in scene if already on server
+                else
                 {
-                    GameObject inst = Instantiate(bitmapPrefab);
-                    inst.name = o.Name;
-                    inst.transform.position = VectorDTOToVector3(o.Position);
-                    inst.transform.eulerAngles = VectorDTOToVector3(o.Rotation);
-                    inst.transform.localScale = VectorDTOToVector3(o.Scale);
-                    inst.GetComponent<BitmapPropertiesManager>().SetProperties(o.Properties);
-
-                    Task t2 = objCont.AddObjectAsync(inst);
-                    while (!t2.IsCompleted)
-                        yield return null;
+                    GameObject inst = GameObject.Find(o.Name);
+                    if (inst != null)
+                    {
+                        inst.transform.position = VectorDTOToVector3(o.Position);
+                        inst.transform.eulerAngles = VectorDTOToVector3(o.Rotation);
+                        inst.transform.localScale = VectorDTOToVector3(o.Scale);
+                    }
                 }
-                // add object to server?
-                // await objCont.AddObjectAsync(o);
             }
         }
     }

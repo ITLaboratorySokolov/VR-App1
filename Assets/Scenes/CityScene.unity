@@ -8184,6 +8184,7 @@ MonoBehaviour:
   meshPrefab: {fileID: 4381866689056338526, guid: 714c04e917aa12440b69baf671459851, type: 3}
   bitmapPrefab: {fileID: 7405459599102452526, guid: 57770f0c4490adc4497fb091b56c315d, type: 3}
   objCont: {fileID: 158358149}
+  miniGame: {fileID: 475231829}
 --- !u!4 &845397762
 Transform:
   m_ObjectHideFlags: 0

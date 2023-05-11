@@ -22,6 +22,8 @@ public class SceneSaveController : MonoBehaviour
     [Header("Controllers")]
     [SerializeField]
     ObjectController objCont;
+    [SerializeField]
+    MinigameController miniGame;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,7 @@ public class SceneSaveController : MonoBehaviour
     /// <param name="slot"> Number of save slot </param>
     public void ExportScene(int slot)
     {
-        string path = Application.dataPath + "/Saves/" + slot + "/";
+        string path = Application.dataPath + "/../Saves/" + slot + "/";
         Debug.Log("Saving to " + path);
         
         if (!Directory.Exists(path))
@@ -69,10 +71,11 @@ public class SceneSaveController : MonoBehaviour
         // delete all server and local objects
         Debug.Log("Delete server objects");
         Task<bool> t = objCont.ClearObjectsFromServer();
+        miniGame.ResetCount();
         while (!t.IsCompleted)
             yield return null;
 
-        string path = Application.dataPath + "/Saves/" + slot + "/";
+        string path = Application.dataPath + "/../Saves/" + slot + "/";
         Debug.Log("Importing from " + path);
 
         if (!Directory.Exists(path))

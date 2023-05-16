@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,6 +6,9 @@ using System.Threading;
 using UnityEngine;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
+/// <summary>
+/// Class for the exports of a scene to a folder
+/// </summary>
 public class SceneExporter
 {
 

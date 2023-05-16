@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using ZCU.TechnologyLab.Common.Entities.DataTransferObjects;
 using ZCU.TechnologyLab.Common.Unity.Behaviours.WorldObjects.Properties.Managers;
 
+/// <summary>
+/// Scene used to control saving and importing scenes
+/// </summary>
 public class SceneSaveController : MonoBehaviour
 {
     [Header("Importer/Exporter")]

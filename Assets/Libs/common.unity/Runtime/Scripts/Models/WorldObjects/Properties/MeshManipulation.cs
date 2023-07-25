@@ -13,7 +13,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
         /// Supported mesh primitives.
         /// </summary>
         private static readonly string[] SupportedPrimitives = { "Triangle" };
-
+        
         /// <summary>
         /// Mesh serializer factory.
         /// </summary>
@@ -25,7 +25,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
         {
             _textureManipulation = new TextureManipulation(supportedPixelFormats);
         }
-
+        
         public Dictionary<string, byte[]> GetPropertiesFromMesh(Mesh mesh, Material material)
         {
             if (material.mainTexture == null)
@@ -38,9 +38,9 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
 
             var texture = TextureManipulation.GetTexture2DFromMaterial(material);
             return _meshSerializerFactory.RawMeshSerializer.Serialize(
-                VectorConverter.Vector3ToFloat(mesh.vertices),
-                mesh.triangles,
-                SupportedPrimitives[0],
+                VectorConverter.Vector3ToFloat(mesh.vertices), 
+                mesh.triangles, 
+                SupportedPrimitives[0], 
                 VectorConverter.Vector2ToFloat(mesh.uv),
                 texture.width,
                 texture.height,
@@ -50,11 +50,10 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
 
         public void SetPropertiesToMesh(Dictionary<string, byte[]> properties, Mesh mesh, Material material)
         {
-            if (_meshSerializerFactory.IsRawMesh(properties))
+            if(_meshSerializerFactory.IsRawMesh(properties))
             {
                 SetRawMeshProperties(properties, mesh, material);
-            }
-            else if (_meshSerializerFactory.IsPlyFile(properties))
+            } else if (_meshSerializerFactory.IsPlyFile(properties))
             {
                 // TODO ply file
             }
@@ -90,7 +89,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
                 var height = meshSerializer.DiffuseTextureHeightSerializer.Deserialize(properties);
                 var formatName = meshSerializer.DiffuseTextureFormatSerializer.Deserialize(properties);
                 var data = meshSerializer.DiffuseTexturePixelsSerializer.Deserialize(properties);
-
+                
                 var format = _textureManipulation.ConvertFormatFromString(formatName);
                 TextureManipulation.CreateOrUpdateExistingTexture(width, height, format, data, material);
             }
@@ -111,8 +110,6 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
             mesh.triangles = new[] { 0, 1, 2, 0, 2, 3 };
 
             RecalculateMesh(mesh);
-
-            Debug.Log("New bounds " + mesh.bounds.size);
         }
 
         public static void UpdateMeshVerticesAndTriangles(Vector3[] vertices, int[] triangles, Mesh mesh)
@@ -121,7 +118,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
             mesh.triangles = triangles;
             RecalculateMesh(mesh);
         }
-
+        
         public static void UpdateMeshVerticesTrianglesAndUvs(Vector3[] vertices, int[] triangles, Vector2[] uvs, Mesh mesh)
         {
             UpdateMeshVerticesAndTriangles(vertices, triangles, mesh);
@@ -140,7 +137,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Models.WorldObjects.Properties
             {
                 mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             }
-
+            
             mesh.vertices = vertices;
         }
     }

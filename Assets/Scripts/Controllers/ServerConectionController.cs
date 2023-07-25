@@ -45,8 +45,29 @@ public class ServerConectionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(InitAndStartSessionCoroutine());
         actionStart.Invoke();
         serializer = new RawMeshSerializer();
+    }
+
+    /// <summary>
+    /// Starting coroutine
+    /// - setting connection
+    /// - creates instances of needed local classes
+    /// - calls action actionStart
+    /// </summary>
+    /// <returns> IEnumerator </returns>
+    IEnumerator InitAndStartSessionCoroutine()
+    {
+        var task = session.InitializeAsync();
+
+        while (!task.IsCompleted)
+            yield return null;
+
+        task = session.StartSessionAsync();
+
+        while (!task.IsCompleted)
+            yield return null;
     }
 
     /// <summary>
@@ -96,14 +117,18 @@ public class ServerConectionController : MonoBehaviour
     }
 
     /// <summary>
-    /// Restarting procedure
-    /// - creates a 5s delay betweem attempts
+    /// Restarting coroutine
+    /// - creates a minimum 5s delay between attempts
+    /// - tries to start the session
     /// </summary>
     /// <returns></returns>
     IEnumerator RestartConnection()
     {
         yield return new WaitForSeconds(5);
         actionStart.Invoke();
+        var task = session.StartSessionAsync();
+        while (!task.IsCompleted)
+            yield return null;
     }
 
     /// <summary>

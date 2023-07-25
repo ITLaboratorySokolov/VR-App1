@@ -14,7 +14,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections
     {
         private const string ConnectionIdHeaderName = "ConnectionId";
 
-        [HelpBox("Rest Data Client and SignalR Session have to be assigned.", HelpBoxAttribute.MessageType.Warning, true)]
+        [HelpBox("Rest Data Client and SignalR Session have to be assigned.", HelpBoxAttribute.MessageType.Warning)]
         [SerializeField]
         [FormerlySerializedAs("restDataClient")]
         private RestDataClientWrapper _restDataClient;
@@ -27,7 +27,7 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections
         [Tooltip("When making changes to world objects, should the changes be reported back from a server to a client that caused them?")]
         [FormerlySerializedAs("reportChangesBackToSourceClient")]
         private bool _reportChangesBackToSourceClient;
-
+        
         private void OnValidate()
         {
             Assert.IsNotNull(_restDataClient, "Rest Data Client was null.");
@@ -55,7 +55,6 @@ namespace ZCU.TechnologyLab.Common.Unity.Behaviours.Connections
 
         private void SetConnectionIdToHeader()
         {
-            Debug.Log("Connection id:" + _signalRSession.ConnectionId);
             _restDataClient.SetHeader(ConnectionIdHeaderName, _signalRSession.ConnectionId);
         }
     }
